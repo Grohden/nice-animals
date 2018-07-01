@@ -1,10 +1,11 @@
-package com.grohden.niceanimals;
+package com.grohden.niceanimals.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.helpers.URLList;
 import com.grohden.niceanimals.ui.adapters.NAAdapter;
 import com.squareup.picasso.Picasso;
