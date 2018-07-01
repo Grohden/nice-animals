@@ -1,4 +1,4 @@
-package com.grohden.niceanimals.ui.viewholders;
+package com.grohden.niceanimals.ui.holders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -6,10 +6,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.grohden.niceanimals.R;
+import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-
-import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +30,11 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
 
     }
 
-    public void bindAnimalPic(URL url) {
+    public void bindAnimal(NiceAnimal animal) {
         mProgressBar.setVisibility(View.VISIBLE);
 
         Picasso.get()
-                .load(url.toString())
+                .load(animal.picUrl)
                 .into(mAnimalView, this);
     }
 

@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.grohden.niceanimals.R;
-import com.grohden.niceanimals.ui.viewholders.NAViewHolder;
+import com.grohden.niceanimals.realm.entities.NiceAnimal;
+import com.grohden.niceanimals.ui.holders.NAViewHolder;
 
-import java.net.URL;
 import java.util.List;
 
 public class NAAdapter extends RecyclerView.Adapter<NAViewHolder> {
-    private List<URL> animals;
+    private List<NiceAnimal> animals;
 
-    public NAAdapter(List<URL> animals) {
+    public NAAdapter(List<NiceAnimal> animals) {
         this.animals = animals;
     }
 
@@ -34,9 +34,9 @@ public class NAAdapter extends RecyclerView.Adapter<NAViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NAViewHolder niceHolder, int position) {
-        URL animalURL = animals.get(position);
+        NiceAnimal animalURL = animals.get(position);
 
-        niceHolder.bindAnimalPic(animalURL);
+        niceHolder.bindAnimal(animalURL);
     }
 
     @Override
