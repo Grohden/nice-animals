@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.grohden.niceanimals.ui.adapters.NAAdapter;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        ((NiceApplication) getApplication()).getNetComponent().inject(this);
 
         configureNiceAnimalsRV();
 

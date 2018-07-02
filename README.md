@@ -9,13 +9,13 @@ It uses [shibe.online](http://shibe.online) as a source for those pictures
 
 ## TODO
 
-* Find out what i will need to save in realm
-* Dynamically fetch images from shibe.online
+* ~~Find out what i will need to save in realm~~
+* ~~Dynamically fetch images from shibe.online~~
 * Use cats and birds instead of only shibe pics
+* Infinite scroll in the recycle view
 
 ## TODO some day
 
-* Find out how to configure dagger for DI
 * Let user chose the image as background for the phone
 * Implement tests
 * Create landscape mode for listing images
@@ -25,5 +25,5 @@ It uses [shibe.online](http://shibe.online) as a source for those pictures
 * Since java "is" very verbose, i'm abbreviating nice animals to "NA", or simple "Nice"
 * MinSDK version is 24 because i love optionals ("maybe" monad) and streams API, i can live without them, 
 but my life is easier if i use them.
-* I should be using okHttp, and tecnically im using it with retrofit, i know that
+* I should be using okHttp, and technically im using it with retrofit, i know that
 shibe online has one endpoint but i prefer to have it mapped in a interface.

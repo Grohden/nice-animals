@@ -34,7 +34,7 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
         mProgressBar.setVisibility(View.VISIBLE);
 
         Picasso.get()
-                .load(animal.picUrl)
+                .load(animal.getPictureUrl())
                 .into(mAnimalView, this);
     }
 
