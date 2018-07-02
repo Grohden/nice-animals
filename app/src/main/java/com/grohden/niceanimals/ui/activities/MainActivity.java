@@ -4,22 +4,38 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 
 import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
+import com.grohden.niceanimals.services.NiceAnimalsService;
+import com.grohden.niceanimals.shibe.service.ShibeService;
 import com.grohden.niceanimals.ui.adapters.NAAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.nice_animals_rv)
     RecyclerView mNiceRecycleView;
+
+    @BindView(R.id.infinite_scroll_progress_bar)
+    ProgressBar mProgressBar;
+
+    @Inject
+    NiceAnimalsService niceAnimalsService;
+
+    @Inject
+    ShibeService shibeService;
+
+    private boolean isLoadingMore = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 new LinearLayoutManager(this)
         );
 
-        final List<NiceAnimal> niceAnimals = Realm.getDefaultInstance()
+        final RealmResults<NiceAnimal> niceAnimals = Realm.getDefaultInstance()
                 .where(NiceAnimal.class)
                 .findAll();
 
-        mNiceRecycleView.setAdapter(new NAAdapter(niceAnimals));
-    }
+        final NAAdapter naAdapter = new NAAdapter(niceAnimals);
 
+        mNiceRecycleView.setAdapter(naAdapter);
+    }
 }

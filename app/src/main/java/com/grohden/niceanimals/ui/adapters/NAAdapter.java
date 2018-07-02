@@ -1,7 +1,6 @@
 package com.grohden.niceanimals.ui.adapters;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +9,15 @@ import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.grohden.niceanimals.ui.holders.NAViewHolder;
 
-import java.util.List;
+import io.realm.RealmRecyclerViewAdapter;
+import io.realm.RealmResults;
 
-public class NAAdapter extends RecyclerView.Adapter<NAViewHolder> {
-    private List<NiceAnimal> animals;
+public class NAAdapter extends RealmRecyclerViewAdapter<NiceAnimal, NAViewHolder> {
 
-    public NAAdapter(List<NiceAnimal> animals) {
-        this.animals = animals;
+    public NAAdapter(RealmResults<NiceAnimal> results) {
+        super(results, true);
     }
+
 
     @NonNull
     @Override
@@ -34,13 +34,7 @@ public class NAAdapter extends RecyclerView.Adapter<NAViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NAViewHolder niceHolder, int position) {
-        NiceAnimal animalURL = animals.get(position);
-
+        NiceAnimal animalURL = getItem(position);
         niceHolder.bindAnimal(animalURL);
-    }
-
-    @Override
-    public int getItemCount() {
-        return animals.size();
     }
 }

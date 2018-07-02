@@ -2,6 +2,8 @@ package com.grohden.niceanimals.modules;
 
 import android.app.Application;
 
+import com.grohden.niceanimals.services.NiceAnimalsService;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -30,6 +32,12 @@ public class AppModule {
     @Singleton
     Realm providesRealm(RealmConfiguration configuration) {
         return Realm.getInstance(configuration);
+    }
+
+    @Provides
+    @Singleton
+    NiceAnimalsService providesNiceAnimalService() {
+        return new NiceAnimalsService();
     }
 
     @Provides

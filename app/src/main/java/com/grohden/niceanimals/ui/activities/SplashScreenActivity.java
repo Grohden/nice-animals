@@ -9,13 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
+import com.grohden.niceanimals.services.NiceAnimalsService;
 import com.grohden.niceanimals.shibe.service.AnimalType;
 import com.grohden.niceanimals.shibe.service.ShibeService;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -40,6 +40,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     @Inject
     ShibeService shibeService;
+
+    @Inject
+    NiceAnimalsService niceAnimalsService;
 
     private Optional<NiceAnimal> findFirstAnimal() {
         final NiceAnimal animal = realm
@@ -79,7 +82,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<URL>>() {
             @Override
             public void onResponse(@NonNull Call<List<URL>> call, @NonNull Response<List<URL>> response) {
-                List<NiceAnimal> animals = buildDogsFromUrlList(response.body());
+                List<NiceAnimal> animals = niceAnimalsService.buildDogsFromUrlList(response.body());
 
                 Realm realm = Realm.getDefaultInstance();
                 realm.beginTransaction();
@@ -94,14 +97,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 //TODO: offline?
             }
         });
-    }
-
-    private List<NiceAnimal> buildDogsFromUrlList(List<URL> urlList) {
-        return urlList
-                .stream()
-                .map(URL::toString)
-                .map(NiceAnimal::new)
-                .collect(Collectors.toList());
     }
 
 
