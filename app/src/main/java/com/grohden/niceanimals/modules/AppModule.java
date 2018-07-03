@@ -3,6 +3,7 @@ package com.grohden.niceanimals.modules;
 import android.app.Application;
 
 import com.grohden.niceanimals.services.NiceAnimalsService;
+import com.grohden.niceanimals.shibe.service.ShibeService;
 
 import javax.inject.Singleton;
 
@@ -31,13 +32,14 @@ public class AppModule {
     @Provides
     @Singleton
     Realm providesRealm(RealmConfiguration configuration) {
+        Realm.deleteRealm(configuration);
         return Realm.getInstance(configuration);
     }
 
     @Provides
     @Singleton
-    NiceAnimalsService providesNiceAnimalService() {
-        return new NiceAnimalsService();
+    NiceAnimalsService providesNiceAnimalService(ShibeService shibeService) {
+        return new NiceAnimalsService(shibeService);
     }
 
     @Provides

@@ -2,8 +2,8 @@ package com.grohden.niceanimals.shibe.service;
 
 import java.net.URL;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -17,7 +17,7 @@ public interface ShibeService {
      * @param count      quantity of image urls, limited to 100
      */
     @GET("{animalType}")
-    Call<List<URL>> fetchNiceImageUrls(
+    CompletableFuture<List<URL>> fetchNiceImageUrls(
             @Path("animalType") AnimalType animalType,
             @Query("count") Integer count
     );

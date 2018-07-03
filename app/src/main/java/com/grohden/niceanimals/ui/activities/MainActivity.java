@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.grohden.niceanimals.services.NiceAnimalsService;
+import com.grohden.niceanimals.shibe.service.AnimalType;
 import com.grohden.niceanimals.shibe.service.ShibeService;
 import com.grohden.niceanimals.ui.adapters.NAAdapter;
 import com.squareup.picasso.Picasso;
@@ -51,17 +53,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configureNiceAnimalsRV() {
-        mNiceRecycleView.setHasFixedSize(false);
-        mNiceRecycleView.setLayoutManager(
-                new LinearLayoutManager(this)
-        );
-
+        final LinearLayoutManager rvLayoutManager = new LinearLayoutManager(this);
         final RealmResults<NiceAnimal> niceAnimals = Realm.getDefaultInstance()
                 .where(NiceAnimal.class)
                 .findAll();
 
         final NAAdapter naAdapter = new NAAdapter(niceAnimals);
 
+        mNiceRecycleView.setHasFixedSize(false);
+        mNiceRecycleView.setLayoutManager(rvLayoutManager);
         mNiceRecycleView.setAdapter(naAdapter);
+        mNiceRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                final boolean isScrollDown = dy > 0;
+                if (isScrollDown && !isLoadingMore) {
+                    final int visibleItemCount = rvLayoutManager.getChildCount();
+                    final int totalItemCount = rvLayoutManager.getItemCount();
+                    final int pastVisiblyItems = rvLayoutManager.findFirstVisibleItemPosition();
+
+                    if ((visibleItemCount + pastVisiblyItems) >= totalItemCount) {
+                        isLoadingMore = true;
+                        mProgressBar.setVisibility(View.VISIBLE);
+
+                        niceAnimalsService
+                                .fetchAndPersistMoreAnimals(AnimalType.SHIBES)
+                                .thenRunAsync(() -> {
+                                    isLoadingMore = false;
+                                    mProgressBar.setVisibility(View.GONE);
+                                });
+                    }
+                }
+            }
+        });
+
     }
 }
