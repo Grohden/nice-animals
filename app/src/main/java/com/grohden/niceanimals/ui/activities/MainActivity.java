@@ -2,6 +2,7 @@ package com.grohden.niceanimals.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configureNiceAnimalsRV() {
-        final LinearLayoutManager rvLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager rvLayoutManager = new GridLayoutManager(this, 2);
         final RealmResults<NiceAnimal> niceAnimals = Realm.getDefaultInstance()
                 .where(NiceAnimal.class)
                 .findAll();
 
         final NAAdapter naAdapter = new NAAdapter(niceAnimals);
 
-        mNiceRecycleView.setHasFixedSize(false);
+        mNiceRecycleView.setHasFixedSize(true);
         mNiceRecycleView.setLayoutManager(rvLayoutManager);
         mNiceRecycleView.setAdapter(naAdapter);
         mNiceRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {

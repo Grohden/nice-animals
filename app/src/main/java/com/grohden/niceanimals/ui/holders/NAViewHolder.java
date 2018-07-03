@@ -35,6 +35,8 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
 
         Picasso.get()
                 .load(animal.getPictureUrl())
+                .resizeDimen(R.dimen.min_image_width, R.dimen.min_image_height)
+                .centerCrop()
                 .into(mAnimalView, this);
     }
 
