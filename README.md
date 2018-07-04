@@ -16,6 +16,7 @@ It uses [shibe.online](http://shibe.online) as a source for those pictures
 
 ## TODO some day
 
+* Implement realm migration
 * Let user chose the image as background for the phone
 * Implement tests
 * Create landscape mode for listing images

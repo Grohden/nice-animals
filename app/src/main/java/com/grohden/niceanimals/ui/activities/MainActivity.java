@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadMoreNiceImages() {
-        // oh well, at least i dont need to specify the diamond type.
         niceAnimalsService
                 .fetchAndPersistAllTypes()
                 .thenRunAsync(() -> {

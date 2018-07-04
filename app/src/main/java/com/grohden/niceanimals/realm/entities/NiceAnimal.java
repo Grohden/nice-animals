@@ -1,9 +1,11 @@
 package com.grohden.niceanimals.realm.entities;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class NiceAnimal extends RealmObject {
 
+    @PrimaryKey
     private String pictureUrl;
     private boolean isFavorite = false;
 //    private AnimalType type; TODO: find out a patter for enums in realm
