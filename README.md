@@ -1,6 +1,6 @@
 # Nice Animals
 
-![Nice icon image](app/src/main/ic_launcher-web.png)
+![Nice icon image](app/src/main/ic_launcher-web.png=200x200)
 
 ## Description
 
