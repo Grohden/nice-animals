@@ -32,8 +32,8 @@ public class AppModule {
     @Provides
     @Singleton
     Realm providesRealm(RealmConfiguration configuration) {
-        Realm.deleteRealm(configuration);
-        return Realm.getInstance(configuration);
+        Realm.setDefaultConfiguration(configuration);
+        return Realm.getDefaultInstance();
     }
 
     @Provides

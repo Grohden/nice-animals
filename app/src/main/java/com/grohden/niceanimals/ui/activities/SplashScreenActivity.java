@@ -9,7 +9,6 @@ import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.grohden.niceanimals.services.NiceAnimalsService;
-import com.grohden.niceanimals.shibe.service.AnimalType;
 import com.grohden.niceanimals.shibe.service.ShibeService;
 
 import java.util.Optional;
@@ -67,7 +66,7 @@ public class SplashScreenActivity extends AppCompatActivity {
      */
     private void handleEmptyDBInitialization() {
         niceAnimalsService
-                .fetchAndPersistMoreAnimals(AnimalType.SHIBES)
+                .fetchAndPersistAllTypes()
                 .thenRunAsync(this::goToMainScreen);
     }
 

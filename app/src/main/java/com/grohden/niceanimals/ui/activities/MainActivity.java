@@ -12,10 +12,8 @@ import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
 import com.grohden.niceanimals.services.NiceAnimalsService;
-import com.grohden.niceanimals.shibe.service.AnimalType;
 import com.grohden.niceanimals.shibe.service.ShibeService;
 import com.grohden.niceanimals.ui.adapters.NAAdapter;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -25,6 +23,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
+
     @BindView(R.id.nice_animals_rv)
     RecyclerView mNiceRecycleView;
 
@@ -49,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         ((NiceApplication) getApplication()).getNetComponent().inject(this);
 
         configureNiceAnimalsRV();
-
-        Picasso.get().setIndicatorsEnabled(true);
     }
 
     private void configureNiceAnimalsRV() {
@@ -79,16 +76,21 @@ public class MainActivity extends AppCompatActivity {
                         //Need to animate the loader properly with a move animation
                         mProgressBar.setVisibility(View.VISIBLE);
 
-                        niceAnimalsService
-                                .fetchAndPersistMoreAnimals(AnimalType.SHIBES)
-                                .thenRunAsync(() -> {
-                                    isLoadingMore = false;
-                                    mProgressBar.setVisibility(View.GONE);
-                                });
+                        loadMoreNiceImages();
                     }
                 }
             }
         });
+    }
 
+
+    private void loadMoreNiceImages() {
+        // oh well, at least i dont need to specify the diamond type.
+        niceAnimalsService
+                .fetchAndPersistAllTypes()
+                .thenRunAsync(() -> {
+                    isLoadingMore = false;
+                    mProgressBar.setVisibility(View.GONE);
+                });
     }
 }
