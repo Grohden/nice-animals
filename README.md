@@ -5,7 +5,7 @@
 ## Description
 
 Nice animals is a **simple android app** that shows some pictures of nice 
-animals :D (for now it only show pics of nice shibe doggos)
+animals :D
 
 It uses [shibe.online](http://shibe.online) as a source for those pictures
 
