@@ -82,8 +82,8 @@ public class NiceAnimalsService {
     public CompletableFuture<List<NiceAnimal>> fetchAndPersistAllTypes() {
 
         return fetchMoreAnimals(AnimalType.SHIBES)
-                .thenCombine(fetchMoreAnimals(AnimalType.BIRDS), this::combineLists)
-                .thenCombine(fetchMoreAnimals(AnimalType.CATS), this::combineLists)
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.BIRDS), this::combineLists)
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.CATS), this::combineLists)
                 .thenApply(animals -> {
                     final long seed = System.nanoTime();
 
