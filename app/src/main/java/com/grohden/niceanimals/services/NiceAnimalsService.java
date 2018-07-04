@@ -38,7 +38,7 @@ public class NiceAnimalsService {
         }
     }
 
-    public List<NiceAnimal> buildDogsFromUrlList(List<URL> urlList) {
+    private List<NiceAnimal> buildAnimalsFromList(List<URL> urlList) {
         return urlList
                 .stream()
                 .map(URL::toString)
@@ -60,7 +60,7 @@ public class NiceAnimalsService {
                 count
         );
 
-        return future.thenApplyAsync(this::buildDogsFromUrlList);
+        return future.thenApplyAsync(this::buildAnimalsFromList);
     }
 
     /**
