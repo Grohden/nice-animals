@@ -11,8 +11,8 @@ It uses [shibe.online](http://shibe.online) as a source for those pictures
 
 * ~~Find out what i will need to save in realm~~
 * ~~Dynamically fetch images from shibe.online~~
-* Use cats and birds instead of only shibe pics
-* Infinite scroll in the recycle view
+* ~~Use cats and birds instead of only shibe pics~~ (btw, bird pics were a bad idea)
+* ~~Infinite scroll in the recycle view~~
 
 ## TODO some day
 
