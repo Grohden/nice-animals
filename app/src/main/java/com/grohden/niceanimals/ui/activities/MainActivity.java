@@ -2,11 +2,11 @@ package com.grohden.niceanimals.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.nice_animals_rv)
     RecyclerView mNiceRecycleView;
 
-    @BindView(R.id.infinite_scroll_progress_bar)
-    ProgressBar mProgressBar;
+    @BindView(R.id.infinite_scroll_progress)
+    CardView mProgressBar;
 
     @Inject
     NiceAnimalsService niceAnimalsService;
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if ((visibleItemCount + pastVisiblyItems) >= totalItemCount) {
                         isLoadingMore = true;
+                        //Need to animate the loader properly with a move animation
                         mProgressBar.setVisibility(View.VISIBLE);
 
                         niceAnimalsService
