@@ -1,5 +1,7 @@
 # Nice Animals
 
+![Nice icon image](app/src/main/ic_launcher-web.png)
+
 ## Description
 
 Nice animals is a **simple android app** that shows some pictures of nice 
