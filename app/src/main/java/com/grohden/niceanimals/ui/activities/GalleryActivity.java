@@ -24,8 +24,11 @@ public class GalleryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        //TODO: implement other life cycle methods and just resume the activity instead
+        // of destroying it
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen_image);
+        setContentView(R.layout.gallery);
         ButterKnife.bind(this);
 
         int imagePosition = getIntent().getIntExtra(IMAGE_URL_EXTRA, 0);
