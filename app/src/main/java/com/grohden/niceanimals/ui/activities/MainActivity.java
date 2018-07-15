@@ -1,6 +1,7 @@
 package com.grohden.niceanimals.ui.activities;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,12 +18,19 @@ import com.grohden.niceanimals.ui.adapters.NAAdapter;
 
 import javax.inject.Inject;
 
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindColor(R.color.colorPrimaryDark)
+    int colorPrimaryDark;
+
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefresh;
 
     @BindView(R.id.nice_animals_rv)
     RecyclerView mNiceRecycleView;
@@ -48,6 +56,17 @@ public class MainActivity extends AppCompatActivity {
         ((NiceApplication) getApplication()).getNetComponent().inject(this);
 
         configureNiceAnimalsRV();
+        configureRefresher();
+    }
+
+    private void configureRefresher() {
+        mSwipeRefresh.setColorSchemeColors(colorPrimaryDark);
+        mSwipeRefresh.setOnRefreshListener(() -> {
+            //FIXME: what happens when you try to refresh while loading more?
+            niceAnimalsService
+                    .refreshAnimals()
+                    .thenRun(() -> mSwipeRefresh.setRefreshing(false));
+        });
     }
 
     private void configureNiceAnimalsRV() {
@@ -82,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void loadMoreNiceImages() {
         niceAnimalsService

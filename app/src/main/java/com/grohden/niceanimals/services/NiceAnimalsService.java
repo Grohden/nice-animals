@@ -46,6 +46,32 @@ public class NiceAnimalsService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Fetches all types of animals from shibe api
+     *
+     * @return a completable future with those new animals to chain into another operation
+     */
+    private CompletableFuture<List<NiceAnimal>> fetchAllTypes() {
+        return fetchMoreAnimals(AnimalType.SHIBES)
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.BIRDS), this::combineLists)
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.CATS), this::combineLists);
+    }
+
+    public CompletableFuture<List<NiceAnimal>> refreshAnimals() {
+        return fetchAllTypes()
+                .thenApply(animals -> {
+                    final long seed = System.nanoTime();
+
+                    Collections.shuffle(animals, new Random(seed));
+
+                    Realm.getDefaultInstance().executeTransaction(realm -> {
+                        realm.delete(NiceAnimal.class);
+                        realm.copyToRealm(animals);
+                    });
+
+                    return animals;
+                });
+    }
 
     /**
      * Fetches more animals
@@ -81,9 +107,7 @@ public class NiceAnimalsService {
      */
     public CompletableFuture<List<NiceAnimal>> fetchAndPersistAllTypes() {
 
-        return fetchMoreAnimals(AnimalType.SHIBES)
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.BIRDS), this::combineLists)
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.CATS), this::combineLists)
+        return fetchAllTypes()
                 .thenApply(animals -> {
                     final long seed = System.nanoTime();
 
