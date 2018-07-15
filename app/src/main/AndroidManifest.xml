@@ -24,7 +24,7 @@
         <activity android:name=".ui.activities.MainActivity" />
 
         <activity
-            android:name=".ui.activities.FullscreenImageActivity"
+            android:name=".ui.activities.GalleryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/FullscreenTheme" />
     </application>

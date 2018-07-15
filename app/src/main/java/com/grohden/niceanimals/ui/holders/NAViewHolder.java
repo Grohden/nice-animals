@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 
 import com.grohden.niceanimals.R;
 import com.grohden.niceanimals.realm.entities.NiceAnimal;
-import com.grohden.niceanimals.ui.activities.FullscreenImageActivity;
+import com.grohden.niceanimals.ui.activities.GalleryActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.grohden.niceanimals.ui.activities.FullscreenImageActivity.IMAGE_URL_EXTRA;
+import static com.grohden.niceanimals.ui.activities.GalleryActivity.IMAGE_URL_EXTRA;
 
 public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
 
@@ -27,7 +27,6 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
     @BindView(R.id.pic_progress_bar)
     ProgressBar mProgressBar;
 
-    private NiceAnimal mNiceAnimal;
 
     public NAViewHolder(View itemView) {
         super(itemView);
@@ -36,7 +35,6 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
     }
 
     public void bindAnimal(NiceAnimal animal) {
-        mNiceAnimal = animal;
         mProgressBar.setVisibility(View.VISIBLE);
 
         Picasso.get()
@@ -51,10 +49,10 @@ public class NAViewHolder extends RecyclerView.ViewHolder implements Callback {
         final Context context = view.getContext();
         final Intent intent = new Intent(
                 context,
-                FullscreenImageActivity.class
+                GalleryActivity.class
         );
 
-        intent.putExtra(IMAGE_URL_EXTRA, mNiceAnimal.getPictureUrl());
+        intent.putExtra(IMAGE_URL_EXTRA, getAdapterPosition());
 
         context.startActivity(intent);
     }
