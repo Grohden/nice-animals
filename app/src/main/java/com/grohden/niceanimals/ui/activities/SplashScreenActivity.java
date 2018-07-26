@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.grohden.niceanimals.NiceApplication;
 import com.grohden.niceanimals.R;
@@ -48,6 +49,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+        );
+
         ((NiceApplication) getApplication()).getNetComponent().inject(this);
 
         if (findFirstAnimal().isPresent()) {

@@ -26,7 +26,6 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //TODO: implement other life cycle methods and just resume the activity instead
         // of destroying it
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
         ButterKnife.bind(this);
