@@ -25,8 +25,5 @@ It uses [shibe.online](http://shibe.online) as a source for those pictures
 
 ## Notes
 
-* Since java "is" very verbose, i'm abbreviating nice animals to "NA", or simple "Nice"
-* MinSDK version is 24 because i love optionals ("maybe" monad) and streams API, i can live without them, 
-but my life is easier if i use them.
 * I should be using okHttp, and technically i'm using it with retrofit, i know that
 shibe online has one endpoint but i prefer to have it mapped in a interface.
