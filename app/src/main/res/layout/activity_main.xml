@@ -2,7 +2,7 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh"
+    android:id="@+id/swipeRefresher"
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,13 +10,13 @@
     tools:context=".ui.activities.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/nice_animals_rv"
+        android:id="@+id/animalListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="4dp" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/infinite_scroll_progress"
+        android:id="@+id/loadMoreLoader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"

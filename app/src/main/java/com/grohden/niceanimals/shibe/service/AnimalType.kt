@@ -1,8 +1,8 @@
-package com.grohden.niceanimals.shibe.service;
+package com.grohden.niceanimals.shibe.service
 
-public enum AnimalType {
+enum class AnimalType {
     //Today we learned that shibes aren't dogs, they are their own type.
     SHIBES,
     CATS,
-    BIRDS;
+    BIRDS
 }
