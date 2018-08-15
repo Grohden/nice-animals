@@ -1,20 +1,22 @@
 package com.grohden.niceanimals.ui.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
+import com.grohden.niceanimals.ui.activities.base.BaseActivity
 import com.grohden.niceanimals.ui.adapters.GalleryAdapter
+import dagger.android.AndroidInjection
 import io.realm.Realm
 import kotlinx.android.synthetic.main.gallery.*
 
-class GalleryActivity : AppCompatActivity() {
+class GalleryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //TODO: implement other life cycle methods and just resume the activity instead
         // of destroying it
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery)
 

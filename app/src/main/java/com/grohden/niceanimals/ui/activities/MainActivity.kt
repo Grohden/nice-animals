@@ -2,20 +2,20 @@ package com.grohden.niceanimals.ui.activities
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.grohden.niceanimals.NiceApplication
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
+import com.grohden.niceanimals.ui.activities.base.BaseActivity
 import com.grohden.niceanimals.ui.adapters.NAAdapter
+import dagger.android.AndroidInjection
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var niceAnimalsService: NiceAnimalsService;
@@ -23,10 +23,9 @@ class MainActivity : AppCompatActivity() {
     private var isLoadingMore = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        (application as NiceApplication).mNetComponent.inject(this)
 
         configureNiceAnimalsRV()
         configureRefresher()

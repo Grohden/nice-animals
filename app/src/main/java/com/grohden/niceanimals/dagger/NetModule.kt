@@ -1,4 +1,4 @@
-package com.grohden.niceanimals.modules
+package com.grohden.niceanimals.dagger
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -8,16 +8,20 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.adapter.java8.Java8CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class NetModule(internal var mBaseUrl: String) {
+class NetModule {
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(gson: Gson): Retrofit {
+    internal fun provideRetrofit(
+            @Named("baseUrl") baseUrl: String,
+            gson: Gson
+    ): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(mBaseUrl)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(Java8CallAdapterFactory.create())
                 .build()

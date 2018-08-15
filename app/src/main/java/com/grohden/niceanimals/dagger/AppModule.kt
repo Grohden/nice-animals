@@ -1,6 +1,5 @@
-package com.grohden.niceanimals.modules
+package com.grohden.niceanimals.dagger
 
-import android.app.Application
 import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.shibe.service.ShibeService
 import dagger.Module
@@ -10,7 +9,7 @@ import io.realm.RealmConfiguration
 import javax.inject.Singleton
 
 @Module
-class AppModule(internal var mApplication: Application) {
+class AppModule {
 
     @Provides
     @Singleton
@@ -31,12 +30,6 @@ class AppModule(internal var mApplication: Application) {
     @Singleton
     internal fun providesNiceAnimalService(shibeService: ShibeService): NiceAnimalsService {
         return NiceAnimalsService(shibeService)
-    }
-
-    @Provides
-    @Singleton
-    internal fun providesApplication(): Application {
-        return mApplication
     }
 
 }

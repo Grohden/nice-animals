@@ -3,21 +3,22 @@ package com.grohden.niceanimals.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.grohden.niceanimals.NiceApplication
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
+import com.grohden.niceanimals.ui.activities.base.BaseActivity
+import dagger.android.AndroidInjection
 import io.realm.Realm
 import java.util.*
 import javax.inject.Inject
+import android.util.Pair as UtilPair
 
 /**
  * SplashScreen activity is responsible for initializing the app
  * initial data, it should at least wait 2s before go to another activity
  */
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : BaseActivity() {
 
     @Inject
     lateinit var realm: Realm
@@ -33,12 +34,12 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_splash_screen)
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
-        (application as NiceApplication).mNetComponent.inject(this)
 
         if (findFirstAnimal().isPresent) {
             Handler().postDelayed(
@@ -74,6 +75,4 @@ class SplashScreenActivity : AppCompatActivity() {
     companion object {
         private const val DEFAULT_SCREEN_TIME = 1000
     }
-
-
 }
