@@ -17,6 +17,10 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
+    private val primaryDark by lazy {
+        ContextCompat.getColor(this, R.color.colorPrimaryDark)
+    }
+
     @Inject
     lateinit var niceAnimalsService: NiceAnimalsService;
 
@@ -32,7 +36,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun configureRefresher() {
-        swipeRefresher.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        swipeRefresher.setColorSchemeColors(primaryDark)
         swipeRefresher.setOnRefreshListener {
             //FIXME: what happens when you try to refresh while loading more?
             niceAnimalsService
@@ -49,10 +53,11 @@ class MainActivity : BaseActivity() {
 
         val naAdapter = NAAdapter(niceAnimals)
 
-        animalListRV.setHasFixedSize(true)
-        animalListRV.layoutManager = rvLayoutManager
-        animalListRV.adapter = naAdapter
-        animalListRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        animalListRV.apply {
+            setHasFixedSize(true)
+            layoutManager = rvLayoutManager
+            adapter = naAdapter
+        }.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 val isScrollDown = dy > 0

@@ -15,7 +15,6 @@ class AppModule {
     @Singleton
     internal fun provideRealmConfiguration(): RealmConfiguration {
         val builder = RealmConfiguration.Builder()
-
         return builder.build()
     }
 
@@ -27,7 +26,6 @@ class AppModule {
     }
 
     @Provides
-    @Singleton
     internal fun providesNiceAnimalService(shibeService: ShibeService): NiceAnimalsService {
         return NiceAnimalsService(shibeService)
     }

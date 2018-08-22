@@ -7,7 +7,7 @@ import io.realm.Realm
 import java.net.URL
 import java.util.concurrent.CompletableFuture
 
-class NiceAnimalsService(internal var shibeService: ShibeService) {
+class NiceAnimalsService(private var shibeService: ShibeService) {
 
     private fun persistListIntoRealm(animals: List<NiceAnimal>) {
         try {
@@ -40,9 +40,9 @@ class NiceAnimalsService(internal var shibeService: ShibeService) {
     }
 
     /**
-     * Fetches and persists new animals into realm
+     * Fetches more animals and remove all the old ones before putting the new ones into
+     * realm
      *
-     * @param type type of the animal to be fetched and persisted
      * @return a completable future with those new animals to chain into another operation
      */
     fun refreshAnimals(): CompletableFuture<List<NiceAnimal>> {
@@ -63,8 +63,7 @@ class NiceAnimalsService(internal var shibeService: ShibeService) {
      * @param count quantity of animals
      * @return a completable future with those new animals to chain into another operation
      */
-    @JvmOverloads
-    fun fetchMoreAnimals(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): CompletableFuture<List<NiceAnimal>> {
+    private fun fetchMoreAnimals(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): CompletableFuture<List<NiceAnimal>> {
         val future = shibeService.fetchNiceImageUrls(
                 type,
                 count
@@ -95,7 +94,6 @@ class NiceAnimalsService(internal var shibeService: ShibeService) {
      * @param count quantity of animals
      * @return a completable future with those new animals to chain into another operation
      */
-    @JvmOverloads
     fun fetchAndPersistMore(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): CompletableFuture<List<NiceAnimal>> {
 
         return fetchMoreAnimals(type, count).thenApplyAsync { animals ->

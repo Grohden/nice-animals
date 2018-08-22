@@ -1,6 +1,5 @@
 package com.grohden.niceanimals.ui.holders
 
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -37,12 +36,10 @@ class NAViewHolder(animalCard: View) : RecyclerView.ViewHolder(animalCard), Call
 
     private fun openFullscreenImageActivity(view: View) {
         val context = view.context
-        val intent = Intent(
+        val intent = GalleryActivity.createIntent(
                 context,
-                GalleryActivity::class.java
+                adapterPosition
         )
-
-        intent.putExtra(GalleryActivity.IMAGE_URL_EXTRA, adapterPosition)
 
         context.startActivity(intent)
     }

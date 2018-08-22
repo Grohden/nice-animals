@@ -1,5 +1,7 @@
 package com.grohden.niceanimals.ui.activities
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
@@ -28,6 +30,7 @@ class GalleryActivity : BaseActivity() {
         val niceAnimals = Realm.getDefaultInstance()
                 .where<NiceAnimal>(NiceAnimal::class.java)
                 .findAll()
+        
 
         val manager = LinearLayoutManager(
                 this,
@@ -39,12 +42,21 @@ class GalleryActivity : BaseActivity() {
         PagerSnapHelper()
                 .attachToRecyclerView(galleryRV)
 
-        galleryRV.layoutManager = manager
-        galleryRV.adapter = galleryAdapter
-        galleryRV.scrollToPosition(position)
+        galleryRV.apply {
+            layoutManager = manager
+            adapter = galleryAdapter
+            scrollToPosition(position)
+        }
     }
 
     companion object {
-        val IMAGE_URL_EXTRA = "IMAGE_URL_EXTRA"
+        private const val IMAGE_URL_EXTRA = "IMAGE_URL_EXTRA"
+
+        fun createIntent(context: Context, imagePosition: Int): Intent {
+            return Intent(
+                    context,
+                    GalleryActivity::class.java
+            ).apply { putExtra(IMAGE_URL_EXTRA, imagePosition) }
+        }
     }
 }
