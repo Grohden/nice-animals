@@ -3,6 +3,7 @@ package com.grohden.niceanimals.dagger
 import com.grohden.niceanimals.ui.activities.GalleryActivity
 import com.grohden.niceanimals.ui.activities.MainActivity
 import com.grohden.niceanimals.ui.activities.SplashScreenActivity
+import com.grohden.niceanimals.ui.fragments.AnimalGridFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -18,4 +19,8 @@ abstract class ApiModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSplashScreenActivityInjector(): SplashScreenActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeAnimalGridFragmentInjector(): AnimalGridFragment
+
 }

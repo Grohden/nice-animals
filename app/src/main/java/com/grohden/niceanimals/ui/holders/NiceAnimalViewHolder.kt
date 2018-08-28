@@ -6,11 +6,13 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
+import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.activities.GalleryActivity
+import com.jakewharton.rxbinding2.view.RxView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class NAViewHolder(animalCard: View) : RecyclerView.ViewHolder(animalCard), Callback {
+class NiceAnimalViewHolder(animalCard: View, private val type: AnimalType) : RecyclerView.ViewHolder(animalCard), Callback {
 
     private val progressBar: ProgressBar by lazy {
         animalCard.findViewById<ProgressBar>(R.id.pic_progress_bar)
@@ -21,7 +23,7 @@ class NAViewHolder(animalCard: View) : RecyclerView.ViewHolder(animalCard), Call
     }
 
     init {
-        animalView.setOnClickListener(this::openFullscreenImageActivity)
+        RxView.clicks(animalView).subscribe { openFullscreenImageActivity() }
     }
 
     fun bindAnimal(animal: NiceAnimal) {
@@ -34,11 +36,12 @@ class NAViewHolder(animalCard: View) : RecyclerView.ViewHolder(animalCard), Call
                 .into(animalView, this)
     }
 
-    private fun openFullscreenImageActivity(view: View) {
-        val context = view.context
+    private fun openFullscreenImageActivity() {
+        val context = animalView.context!!
         val intent = GalleryActivity.createIntent(
                 context,
-                adapterPosition
+                adapterPosition,
+                type
         )
 
         context.startActivity(intent)

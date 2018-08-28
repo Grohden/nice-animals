@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
-import com.grohden.niceanimals.ui.activities.base.BaseActivity
+import com.grohden.niceanimals.ui.base.BaseActivity
 import dagger.android.AndroidInjection
 import io.realm.Realm
 import java.util.*
@@ -58,7 +59,13 @@ class SplashScreenActivity : BaseActivity() {
     private fun handleEmptyDBInitialization() {
         niceAnimalsService
                 .fetchAndPersistAllTypes()
-                .thenRun { this.goToMainScreen() }
+                .whenComplete { _, ex ->
+                    if (ex != null) {
+                        Toast.makeText(applicationContext, "Exception trying to get animals :/", Toast.LENGTH_LONG).show()
+                    } else {
+                        goToMainScreen()
+                    }
+                }
     }
 
 

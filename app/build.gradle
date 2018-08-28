@@ -4,7 +4,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'realm-android'
 
-def compatLibsVersion = "27.1.1"
+ext {
+    compatLibsVersion = "27.1.1"
+    rxBindingsVersion = "2.1.1"
+}
 
 android {
     compileSdkVersion 27
@@ -30,41 +33,52 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$compatLibsVersion"
 
+    // RX
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxBindingsVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$rxBindingsVersion"
+    // Do i need rxkotlin? implementation 'io.reactivex.rxjava2:rxkotlin:x.y.z'
+
+    //Support libs
+    //FIXME: do i need v4 AND v7?
+    implementation "com.android.support:appcompat-v7:$compatLibsVersion"
+    implementation "com.android.support:design:$compatLibsVersion"
     implementation "com.android.support:support-v4:$compatLibsVersion"
     implementation "com.android.support:recyclerview-v7:$compatLibsVersion"
     implementation "com.android.support:cardview-v7:$compatLibsVersion"
-
     //These ones are only present because AS complains about versions...
     implementation "com.android.support:animated-vector-drawable:$compatLibsVersion"
     implementation "com.android.support:exifinterface:$compatLibsVersion"
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
-    implementation 'com.google.code.gson:gson:2.8.5'
-
+    //Realm
     implementation 'io.realm:android-adapters:2.1.1'
 
+    //Image related
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    //Retrofit
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-java8:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
+    //Dagger
     implementation 'com.google.dagger:dagger-android:2.11'
     implementation 'com.google.dagger:dagger-android-support:2.11'
-    implementation 'com.android.support:support-v4:27.1.1'
     kapt 'com.google.dagger:dagger-android-processor:2.11'
     kapt 'com.google.dagger:dagger-compiler:2.11'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

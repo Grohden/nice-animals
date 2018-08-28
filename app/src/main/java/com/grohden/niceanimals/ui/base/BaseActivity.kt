@@ -1,4 +1,4 @@
-package com.grohden.niceanimals.ui.activities.base
+package com.grohden.niceanimals.ui.base
 
 import android.support.v7.app.AppCompatActivity
 

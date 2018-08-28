@@ -21,10 +21,10 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
 
     }
 
-    private fun buildAnimalsFromList(urlList: List<URL>): List<NiceAnimal> {
+    private fun buildAnimalsFromList(urlList: List<URL>, type: AnimalType): List<NiceAnimal> {
         return urlList
                 .map { it.toString() }
-                .map { NiceAnimal(it) }
+                .map { NiceAnimal(it, type) }
                 .toList()
     }
 
@@ -34,9 +34,9 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      * @return a completable future with those new animals to chain into another operation
      */
     private fun fetchAllTypes(): CompletableFuture<List<NiceAnimal>> {
-        return fetchMoreAnimals(AnimalType.SHIBES)
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.BIRDS)) { listOne, listTwo -> listOne + listTwo }
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.CATS)) { listOne, listTwo -> listOne + listTwo }
+        return fetchMoreAnimals(AnimalType.shibes)
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.birds)) { listOne, listTwo -> listOne + listTwo }
+                .thenCombineAsync(fetchMoreAnimals(AnimalType.cats)) { listOne, listTwo -> listOne + listTwo }
     }
 
     /**
@@ -69,7 +69,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
                 count
         )
 
-        return future.thenApplyAsync { this.buildAnimalsFromList(it) }
+        return future.thenApplyAsync { this.buildAnimalsFromList(it, type) }
     }
 
     /**
@@ -103,6 +103,6 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
     }
 
     companion object {
-        private const val DEFAULT_IMAGE_FETCH_COUNT = 4
+        private const val DEFAULT_IMAGE_FETCH_COUNT = 10
     }
 }

@@ -1,5 +1,6 @@
 package com.grohden.niceanimals.realm.entities
 
+import com.grohden.niceanimals.shibe.service.AnimalType
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import io.realm.annotations.RealmClass
@@ -8,14 +9,15 @@ import io.realm.annotations.RealmClass
 open class NiceAnimal : RealmObject {
 
     @PrimaryKey
-    var pictureUrl: String? = null
-    //    private AnimalType type; TODO: find out a patter for enums in realm
+    lateinit var pictureUrl: String
+    lateinit var type: String
 
     constructor() {
 
     }
 
-    constructor(pictureUrl: String) {
+    constructor(pictureUrl: String, animalType: AnimalType) {
         this.pictureUrl = pictureUrl
+        this.type = animalType.name
     }
 }

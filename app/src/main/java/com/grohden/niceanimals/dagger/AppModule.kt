@@ -14,8 +14,9 @@ class AppModule {
     @Provides
     @Singleton
     internal fun provideRealmConfiguration(): RealmConfiguration {
-        val builder = RealmConfiguration.Builder()
-        return builder.build()
+        return RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build()
     }
 
     @Provides
