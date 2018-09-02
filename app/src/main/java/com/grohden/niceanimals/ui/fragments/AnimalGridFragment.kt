@@ -40,7 +40,7 @@ class AnimalGridFragment : BaseFragment() {
     }
 
     @Inject
-    lateinit var niceAnimalsService: NiceAnimalsService;
+    lateinit var niceAnimalsService: NiceAnimalsService
 
     private var isLoadingMore = false
 
@@ -73,7 +73,7 @@ class AnimalGridFragment : BaseFragment() {
             //FIXME: what happens when you try to refresh while loading more?
             niceAnimalsService
                     .refreshAnimals()
-                    .thenRun { swipeRefresher.isRefreshing = false }
+                    .subscribe { _, _ -> swipeRefresher.isRefreshing = false }
         }
     }
 
@@ -107,7 +107,7 @@ class AnimalGridFragment : BaseFragment() {
         isLoadingMore = true
         niceAnimalsService
                 .fetchAndPersistMore(animalType)
-                .thenRunAsync {
+                .subscribe { _, _ ->
                     isLoadingMore = false
                 }
     }

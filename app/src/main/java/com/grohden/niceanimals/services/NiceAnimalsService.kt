@@ -1,8 +1,15 @@
 package com.grohden.niceanimals.services
 
+import android.util.Log
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.shibe.service.ShibeService
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Function3
+import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import java.net.URL
 import java.util.concurrent.CompletableFuture
@@ -16,9 +23,8 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
             realm.copyToRealm(animals)
             realm.commitTransaction()
         } catch (e: Exception) {
-            print(e);
+            Log.e("NiceAnimalsService", "Hey, i couldn't save the animals :/", e)
         }
-
     }
 
     private fun buildAnimalsFromList(urlList: List<URL>, type: AnimalType): List<NiceAnimal> {
@@ -29,14 +35,18 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
     }
 
     /**
-     * Fetches all types of animals from shibe api
+     * Fetches all types of animals from shibe api in parallel
      *
-     * @return a completable future with those new animals to chain into another operation
+     * @return a single with those new animals to chain into another operation
      */
-    private fun fetchAllTypes(): CompletableFuture<List<NiceAnimal>> {
-        return fetchMoreAnimals(AnimalType.shibes)
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.birds)) { listOne, listTwo -> listOne + listTwo }
-                .thenCombineAsync(fetchMoreAnimals(AnimalType.cats)) { listOne, listTwo -> listOne + listTwo }
+    private fun fetchAllTypes(): Single<List<NiceAnimal>> {
+        return Single.zip(
+                fetchMoreAnimals(AnimalType.shibes),
+                fetchMoreAnimals(AnimalType.birds),
+                fetchMoreAnimals(AnimalType.cats),
+                Function3<List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>>
+                { shibes, birds, cats -> (shibes + birds + cats) }
+        )
     }
 
     /**
@@ -45,9 +55,9 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      *
      * @return a completable future with those new animals to chain into another operation
      */
-    fun refreshAnimals(): CompletableFuture<List<NiceAnimal>> {
+    fun refreshAnimals(): Single<List<NiceAnimal>> {
         return fetchAllTypes()
-                .thenApply { animals ->
+                .map { animals ->
                     Realm.getDefaultInstance().executeTransaction { realm ->
                         realm.delete(NiceAnimal::class.java)
                         realm.copyToRealm(animals.shuffled())
@@ -61,27 +71,27 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      *
      * @param type  type of the animal to be fetched
      * @param count quantity of animals
-     * @return a completable future with those new animals to chain into another operation
+     * @return a observable to receive the values from
      */
-    private fun fetchMoreAnimals(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): CompletableFuture<List<NiceAnimal>> {
-        val future = shibeService.fetchNiceImageUrls(
-                type,
-                count
-        )
+    private fun fetchMoreAnimals(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): Single<List<NiceAnimal>> {
+        val future = shibeService.fetchNiceImageUrls(type, count)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
 
-        return future.thenApplyAsync { this.buildAnimalsFromList(it, type) }
+
+        return future.map { buildAnimalsFromList(it, type) }
     }
 
     /**
      * Fetches and persists all three types of animals into realm, shuffling them before
      * persisting
      *
-     * @return a completable future with those new animals to chain into another operation
+     * @return a observable with those new animals to chain into another operation
      */
-    fun fetchAndPersistAllTypes(): CompletableFuture<List<NiceAnimal>> {
+    fun fetchAndPersistAllTypes(): Single<List<NiceAnimal>> {
 
         return fetchAllTypes()
-                .thenApply { animals ->
+                .map { animals ->
                     persistListIntoRealm(animals.shuffled())
                     animals
                 }
@@ -94,9 +104,9 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      * @param count quantity of animals
      * @return a completable future with those new animals to chain into another operation
      */
-    fun fetchAndPersistMore(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): CompletableFuture<List<NiceAnimal>> {
+    fun fetchAndPersistMore(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): Single<List<NiceAnimal>> {
 
-        return fetchMoreAnimals(type, count).thenApplyAsync { animals ->
+        return fetchMoreAnimals(type, count).map { animals ->
             persistListIntoRealm(animals)
             animals
         }

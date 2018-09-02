@@ -1,10 +1,10 @@
 package com.grohden.niceanimals.shibe.service
 
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.net.URL
-import java.util.concurrent.CompletableFuture
 
 interface ShibeService {
 
@@ -18,6 +18,6 @@ interface ShibeService {
     fun fetchNiceImageUrls(
             @Path("animalType") animalType: AnimalType,
             @Query("count") count: Int?
-    ): CompletableFuture<List<URL>>
+    ): Single<List<URL>>
 
 }

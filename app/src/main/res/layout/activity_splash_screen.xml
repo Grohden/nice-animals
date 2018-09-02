@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@mipmap/ic_launcher_round"
-        android:elevation="4dp" />
+        />
 
     <TextView
         android:id="@+id/splash_text"
