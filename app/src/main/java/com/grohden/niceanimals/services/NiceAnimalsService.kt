@@ -22,6 +22,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
             realm.beginTransaction()
             realm.copyToRealm(animals)
             realm.commitTransaction()
+            realm.close()
         } catch (e: Exception) {
             Log.e("NiceAnimalsService", "Hey, i couldn't save the animals :/", e)
         }
@@ -53,13 +54,20 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      * Fetches more animals and remove all the old ones before putting the new ones into
      * realm
      *
+     * @param type  type of the animal to be fetched
+     * @param count quantity of animals
+     *
      * @return a completable future with those new animals to chain into another operation
      */
-    fun refreshAnimals(): Single<List<NiceAnimal>> {
-        return fetchAllTypes()
+    fun refreshAnimalType(type: AnimalType, count: Int = DEFAULT_IMAGE_FETCH_COUNT): Single<List<NiceAnimal>> {
+        return fetchMoreAnimals(type, count)
                 .map { animals ->
                     Realm.getDefaultInstance().executeTransaction { realm ->
-                        realm.delete(NiceAnimal::class.java)
+                        realm.where(NiceAnimal::class.java)
+                                .equalTo("type", type.name)
+                                .findAll()
+                                .deleteAllFromRealm()
+
                         realm.copyToRealm(animals.shuffled())
                     }
                     animals

@@ -71,8 +71,9 @@ class AnimalGridFragment : BaseFragment() {
         swipeRefresher.setColorSchemeColors(primaryDark)
         swipeRefresher.setOnRefreshListener {
             //FIXME: what happens when you try to refresh while loading more?
+            //FIXME: crash, that`s what happens. (realm query vs realm delete breaks)
             niceAnimalsService
-                    .refreshAnimals()
+                    .refreshAnimalType(animalType)
                     .subscribe { _, _ -> swipeRefresher.isRefreshing = false }
         }
     }
