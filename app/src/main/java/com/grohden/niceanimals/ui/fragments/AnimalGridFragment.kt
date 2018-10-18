@@ -16,10 +16,9 @@ import com.grohden.niceanimals.ui.base.BaseFragment
 import com.grohden.niceanimals.ui.extensions.getEnum
 import com.grohden.niceanimals.ui.extensions.isEnum
 import com.grohden.niceanimals.ui.extensions.putEnum
-import dagger.android.support.AndroidSupportInjection
 import io.realm.Realm
 import kotlinx.android.synthetic.main.animal_grid_fragment.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 
 class AnimalGridFragment : BaseFragment() {
@@ -39,8 +38,7 @@ class AnimalGridFragment : BaseFragment() {
 
     }
 
-    @Inject
-    lateinit var niceAnimalsService: NiceAnimalsService
+    private val niceAnimalsService: NiceAnimalsService by inject()
 
     private var isLoadingMore = false
 
@@ -51,7 +49,6 @@ class AnimalGridFragment : BaseFragment() {
     }
 
     override fun onAttach(activity: Context) {
-        AndroidSupportInjection.inject(this)
         super.onAttach(activity)
 
         animalType = arguments!!.getEnum(ANIMAL_TYPE) as AnimalType

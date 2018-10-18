@@ -1,50 +1,22 @@
 package com.grohden.niceanimals
 
-import android.app.Activity
 import android.app.Application
-import android.support.v4.app.Fragment
-import com.grohden.niceanimals.dagger.AppModule
-import com.grohden.niceanimals.dagger.NetModule
-import com.grohden.niceanimals.dagger.components.DaggerAppComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
-import dagger.android.support.HasSupportFragmentInjector
+import com.grohden.niceanimals.base.di.koin.niceApp
 import io.realm.Realm
-import javax.inject.Inject
+import io.realm.RealmConfiguration
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.startKoin
 
-class NiceApplication : Application(), HasActivityInjector, HasSupportFragmentInjector {
+class NiceApplication : Application() {
 
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
-
-    @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-        return fragmentInjector
-    }
-
-    override fun activityInjector(): AndroidInjector<Activity> {
-        return activityInjector
-    }
+    private val realmConfig: RealmConfiguration by inject()
 
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
+        startKoin(this, niceApp)
 
-        DaggerAppComponent
-                .builder()
-                .application(this)
-                .netModule(NetModule())
-                .appModule(AppModule())
-                .baseUrl(BASE_SHIBE_URL)
-                .build()
-                .inject(this)
-    }
-
-    companion object {
-        private const val BASE_SHIBE_URL = "https://shibe.online/api/"
+        Realm.setDefaultConfiguration(realmConfig)
     }
 
 }

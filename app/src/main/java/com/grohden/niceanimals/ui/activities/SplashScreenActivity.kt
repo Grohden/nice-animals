@@ -10,12 +10,8 @@ import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.ui.base.BaseActivity
-import dagger.android.AndroidInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
-import java.util.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 import android.util.Pair as UtilPair
 
 /**
@@ -24,11 +20,10 @@ import android.util.Pair as UtilPair
  */
 class SplashScreenActivity : BaseActivity() {
 
-    @Inject
-    lateinit var realm: Realm
 
-    @Inject
-    lateinit var niceAnimalsService: NiceAnimalsService
+    private val realm: Realm by inject()
+
+    private val niceAnimalsService: NiceAnimalsService by inject()
 
     private fun findFirstAnimal(): NiceAnimal? {
         return realm
@@ -37,7 +32,6 @@ class SplashScreenActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_splash_screen)

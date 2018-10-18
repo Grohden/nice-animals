@@ -13,7 +13,6 @@ import com.grohden.niceanimals.ui.base.BaseActivity
 import com.grohden.niceanimals.ui.extensions.getEnumExtra
 import com.grohden.niceanimals.ui.extensions.isEnum
 import com.grohden.niceanimals.ui.extensions.putEnumExtra
-import dagger.android.AndroidInjection
 import io.realm.Realm
 import kotlinx.android.synthetic.main.gallery.*
 
@@ -22,7 +21,6 @@ class GalleryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //TODO: implement other life cycle methods and just resume the activity instead
         // of destroying it
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery)
 
