@@ -24,7 +24,7 @@ As a guide to myself and some beginner, i'm listing the libs i used and some com
 
  * OkHttp - To configure retrofit with logs
  * Retrofit - To map your endpoint interfaces and make them typesafe
- * Koins - For DI, i was using Dagger 2, which in my opinion is too complex, koins do the same in a more
+ * Koin - For DI, i was using Dagger 2, which in my opinion is too complex, koin do the same in a more
  simple and concise syntax.
  * Timber - A better logger than the android default one
  * RxJava, RxBindings, RxAndroid - The Rx libraries to make a reactive app
