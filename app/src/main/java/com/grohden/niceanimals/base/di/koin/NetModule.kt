@@ -38,18 +38,18 @@ fun createOkHttpClient(): OkHttpClient {
     httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 
     return OkHttpClient.Builder()
-            .connectTimeout(60L, TimeUnit.SECONDS)
-            .readTimeout(60L, TimeUnit.SECONDS)
-            .addInterceptor(httpLoggingInterceptor)
-            .build()
+        .connectTimeout(60L, TimeUnit.SECONDS)
+        .readTimeout(60L, TimeUnit.SECONDS)
+        .addInterceptor(httpLoggingInterceptor)
+        .build()
 }
 
 inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String): T {
     return Retrofit.Builder()
-            .baseUrl(url)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(T::class.java)
+        .baseUrl(url)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(T::class.java)
 }

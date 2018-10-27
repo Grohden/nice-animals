@@ -41,8 +41,8 @@ class MainActivity : BaseActivity() {
 
     private fun configureTabs() {
         animalGridPager.adapter = TabPageAdapter(
-                supportFragmentManager,
-                this
+            supportFragmentManager,
+            this
         )
 
         animalTypeTab.setupWithViewPager(animalGridPager)

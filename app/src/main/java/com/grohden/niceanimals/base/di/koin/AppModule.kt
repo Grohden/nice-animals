@@ -16,9 +16,9 @@ val appModule = module {
 
 fun createRealmConfig(): RealmConfiguration {
     return RealmConfiguration
-            .Builder()
-            .deleteRealmIfMigrationNeeded()
-            .build()
+        .Builder()
+        .deleteRealmIfMigrationNeeded()
+        .build()
 }
 
 val niceApp = listOf(appModule, netModule)

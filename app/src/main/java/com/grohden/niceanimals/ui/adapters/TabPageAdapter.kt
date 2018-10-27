@@ -7,18 +7,19 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.fragments.AnimalGridFragment
 
-class TabPageAdapter(manager: FragmentManager, val context: Context) : FragmentPagerAdapter(manager) {
+class TabPageAdapter(manager: FragmentManager, val context: Context) :
+    FragmentPagerAdapter(manager) {
     private companion object {
         val typesMap = mapOf(
-                "Cats" to AnimalType.cats,
-                "Shibes" to AnimalType.shibes,
-                "Birbs" to AnimalType.birds
+            "Cats" to AnimalType.cats,
+            "Shibes" to AnimalType.shibes,
+            "Birbs" to AnimalType.birds
         )
     }
 
     override fun getItem(position: Int): Fragment {
         return AnimalGridFragment.newInstance(
-                typesMap.values.elementAt(position)
+            typesMap.values.elementAt(position)
         )
     }
 

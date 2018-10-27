@@ -8,14 +8,15 @@ import com.grohden.niceanimals.ui.holders.GalleryViewHolder
 import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
 
-class GalleryAdapter(results: RealmResults<NiceAnimal>) : RealmRecyclerViewAdapter<NiceAnimal, GalleryViewHolder>(results, true) {
+class GalleryAdapter(results: RealmResults<NiceAnimal>) :
+    RealmRecyclerViewAdapter<NiceAnimal, GalleryViewHolder>(results, true) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(
-                R.layout.gallery_image,
-                parent,
-                false
+            R.layout.gallery_image,
+            parent,
+            false
         )
 
         return GalleryViewHolder(v)

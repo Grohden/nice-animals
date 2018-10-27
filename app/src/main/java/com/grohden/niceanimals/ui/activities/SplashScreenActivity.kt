@@ -25,8 +25,8 @@ class SplashScreenActivity : BaseActivity() {
 
     private fun findFirstAnimal(): NiceAnimal? {
         return realm
-                .where<NiceAnimal>(NiceAnimal::class.java)
-                .findFirst()
+            .where<NiceAnimal>(NiceAnimal::class.java)
+            .findFirst()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +38,8 @@ class SplashScreenActivity : BaseActivity() {
 
         if (findFirstAnimal() != null) {
             Handler().postDelayed(
-                    { this.goToMainScreen() },
-                    DEFAULT_SCREEN_TIME.toLong()
+                { this.goToMainScreen() },
+                DEFAULT_SCREEN_TIME.toLong()
             )
         } else {
             handleEmptyDBInitialization()
@@ -52,21 +52,25 @@ class SplashScreenActivity : BaseActivity() {
      */
     private fun handleEmptyDBInitialization() {
         niceAnimalsService
-                .fetchAndPersistAllTypes()
-                .subscribe { _, ex ->
-                    if (ex != null) {
-                        Toast.makeText(applicationContext, "Exception trying to get animals :/", Toast.LENGTH_LONG).show()
-                        Log.e("SplashScreenActivity", "Error at empty DB initialization", ex)
-                    } else {
-                        goToMainScreen()
-                    }
+            .fetchAndPersistAllTypes()
+            .subscribe { _, ex ->
+                if (ex != null) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Exception trying to get animals :/",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.e("SplashScreenActivity", "Error at empty DB initialization", ex)
+                } else {
+                    goToMainScreen()
                 }
+            }
     }
 
     private fun goToMainScreen() {
         val intent = Intent(
-                this,
-                MainActivity::class.java
+            this,
+            MainActivity::class.java
         )
 
         startActivity(intent)

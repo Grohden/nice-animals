@@ -31,19 +31,19 @@ class GalleryActivity : BaseActivity() {
 
     private fun configureRV(position: Int, animalType: AnimalType) {
         val niceAnimals = Realm.getDefaultInstance()
-                .where<NiceAnimal>(NiceAnimal::class.java)
-                .isEnum("type", animalType)
-                .findAll()
+            .where<NiceAnimal>(NiceAnimal::class.java)
+            .isEnum("type", animalType)
+            .findAll()
 
         val manager = LinearLayoutManager(
-                this,
-                LinearLayoutManager.HORIZONTAL,
-                false
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
         )
         val galleryAdapter = GalleryAdapter(niceAnimals)
 
         PagerSnapHelper()
-                .attachToRecyclerView(galleryRV)
+            .attachToRecyclerView(galleryRV)
 
         galleryRV.apply {
             layoutManager = manager
@@ -58,8 +58,8 @@ class GalleryActivity : BaseActivity() {
 
         fun createIntent(context: Context, imagePosition: Int, animalType: AnimalType): Intent {
             return Intent(
-                    context,
-                    GalleryActivity::class.java
+                context,
+                GalleryActivity::class.java
             ).apply {
                 putExtra(IMAGE_URL_EXTRA, imagePosition)
                 putEnumExtra(ANIMAL_TYPE_EXTRA, animalType)

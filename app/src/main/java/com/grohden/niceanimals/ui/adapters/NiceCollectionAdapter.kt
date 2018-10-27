@@ -1,8 +1,8 @@
 package com.grohden.niceanimals.ui.adapters
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
@@ -13,7 +13,7 @@ import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
 
 class NiceCollectionAdapter(results: RealmResults<NiceAnimal>, private val type: AnimalType) :
-        RealmRecyclerViewAdapter<NiceAnimal, NiceAnimalViewHolder>(results, true) {
+    RealmRecyclerViewAdapter<NiceAnimal, NiceAnimalViewHolder>(results, true) {
     private val onReachBottomSubject by lazy {
         PublishSubject.create<Int>()
     }
@@ -23,9 +23,9 @@ class NiceCollectionAdapter(results: RealmResults<NiceAnimal>, private val type:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NiceAnimalViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(
-                R.layout.animal_card,
-                parent,
-                false
+            R.layout.animal_card,
+            parent,
+            false
         )
 
         return NiceAnimalViewHolder(v, type)
