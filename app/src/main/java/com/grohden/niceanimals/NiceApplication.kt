@@ -18,5 +18,4 @@ class NiceApplication : Application() {
 
         Realm.setDefaultConfiguration(realmConfig)
     }
-
 }

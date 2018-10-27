@@ -4,15 +4,12 @@ import android.util.Log
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.shibe.service.ShibeService
-import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
 import io.realm.Realm
 import java.net.URL
-import java.util.concurrent.CompletableFuture
 
 class NiceAnimalsService(private var shibeService: ShibeService) {
 
@@ -54,7 +51,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
      * Fetches more animals and remove all the old ones before putting the new ones into
      * realm
      *
-     * @param type  type of the animal to be fetched
+     * @param type type of the animal to be fetched
      * @param count quantity of animals
      *
      * @return a completable future with those new animals to chain into another operation
@@ -77,7 +74,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
     /**
      * Fetches more animals
      *
-     * @param type  type of the animal to be fetched
+     * @param type type of the animal to be fetched
      * @param count quantity of animals
      * @return a observable to receive the values from
      */
@@ -85,7 +82,6 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
         val future = shibeService.fetchNiceImageUrls(type, count)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-
 
         return future.map { buildAnimalsFromList(it, type) }
     }
@@ -108,7 +104,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
     /**
      * Fetches and persists new animals into realm
      *
-     * @param type  type of the animal to be fetched and persisted
+     * @param type type of the animal to be fetched and persisted
      * @param count quantity of animals
      * @return a completable future with those new animals to chain into another operation
      */

@@ -12,14 +12,12 @@ import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.ui.base.BaseActivity
 import io.realm.Realm
 import org.koin.android.ext.android.inject
-import android.util.Pair as UtilPair
 
 /**
  * SplashScreen activity is responsible for initializing the app
  * initial data, it should at least wait 2s before go to another activity
  */
 class SplashScreenActivity : BaseActivity() {
-
 
     private val realm: Realm by inject()
 
@@ -64,7 +62,6 @@ class SplashScreenActivity : BaseActivity() {
                     }
                 }
     }
-
 
     private fun goToMainScreen() {
         val intent = Intent(

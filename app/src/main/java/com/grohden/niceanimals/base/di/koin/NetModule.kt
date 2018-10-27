@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 // just declare it
 val netModule = module {
-    //Gson
+    // Gson
     single {
         GsonBuilder().create()
     }

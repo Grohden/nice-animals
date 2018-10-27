@@ -1,9 +1,9 @@
 package com.grohden.niceanimals.ui.holders
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
@@ -46,7 +46,6 @@ class NiceAnimalViewHolder(animalCard: View, private val type: AnimalType) : Rec
 
         context.startActivity(intent)
     }
-
 
     override fun onSuccess() {
         progressBar.visibility = View.GONE

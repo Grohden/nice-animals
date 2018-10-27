@@ -1,5 +1,7 @@
 # Nice Animals
 
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+
 ![Nice icon image](app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
 ## Description
@@ -39,6 +41,7 @@ As a guide to myself and some beginner, i'm listing the libs i used and some com
    * Room seems to do a better work - i will use room in the near future.
    * You should use realm fields plugin, but no one tells you that
 
+I also used [ktlint](https://github.com/shyiko/ktlint) through the [ktlint-gradle plugin](https://github.com/jlleitschuh/ktlint-gradle)
 
 ### Dependencies to use in the future
 

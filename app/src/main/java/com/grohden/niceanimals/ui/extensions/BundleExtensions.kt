@@ -7,5 +7,5 @@ fun Bundle.putEnum(key: String, enum: Enum<*>) {
 }
 
 inline fun <reified T : Enum<T>> Bundle.getEnum(key: String): T {
-    return enumValueOf(getString(key))
+    return enumValueOf(getString(key)!!)
 }

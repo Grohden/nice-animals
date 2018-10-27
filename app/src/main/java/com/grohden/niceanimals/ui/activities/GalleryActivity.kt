@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.gallery.*
 class GalleryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //TODO: implement other life cycle methods and just resume the activity instead
+        // TODO: implement other life cycle methods and just resume the activity instead
         // of destroying it
         super.onCreate(savedInstanceState)
         setContentView(R.layout.gallery)

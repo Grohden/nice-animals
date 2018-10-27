@@ -10,7 +10,6 @@ import com.grohden.niceanimals.ui.adapters.TabPageAdapter
 import com.grohden.niceanimals.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : BaseActivity() {
 
     companion object {
@@ -39,7 +38,6 @@ class MainActivity : BaseActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     private fun configureTabs() {
         animalGridPager.adapter = TabPageAdapter(

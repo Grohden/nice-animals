@@ -21,7 +21,6 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.animal_grid_fragment.*
 import org.koin.android.ext.android.inject
 
-
 class AnimalGridFragment : BaseFragment() {
 
     companion object {
@@ -36,7 +35,6 @@ class AnimalGridFragment : BaseFragment() {
             fragment.arguments = args
             return fragment
         }
-
     }
 
     private val disposables = CompositeDisposable()
@@ -75,8 +73,8 @@ class AnimalGridFragment : BaseFragment() {
     private fun configureRefresher() {
         swipeRefresher.setColorSchemeColors(primaryDark)
         swipeRefresher.setOnRefreshListener {
-            //FIXME: what happens when you try to refresh while loading more?
-            //FIXME: crash, that`s what happens. (realm query vs realm delete breaks)
+            // FIXME: what happens when you try to refresh while loading more?
+            // FIXME: crash, that`s what happens. (realm query vs realm delete breaks)
             niceAnimalsService
                     .refreshAnimalType(animalType)
                     .subscribe { _, _ -> swipeRefresher.isRefreshing = false }
@@ -122,6 +120,5 @@ class AnimalGridFragment : BaseFragment() {
                 .subscribe { _, _ ->
                     isLoadingMore = false
                 }.also { disposables.add(it) }
-
     }
 }
