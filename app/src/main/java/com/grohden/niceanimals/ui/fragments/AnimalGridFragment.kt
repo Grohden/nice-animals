@@ -2,11 +2,11 @@ package com.grohden.niceanimals.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
@@ -111,6 +111,11 @@ class AnimalGridFragment : BaseFragment() {
     }
 
     private fun loadMoreNiceImages() {
+
+        if (swipeRefresher.isRefreshing) {
+            return
+        }
+
         isLoadingMore = true
         niceAnimalsService
                 .fetchAndPersistMore(animalType)
