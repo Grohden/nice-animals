@@ -10,13 +10,13 @@
     app:cardCornerRadius="4dp">
 
     <ProgressBar
-        android:id="@+id/pic_progress_bar"
+        android:id="@+id/picProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
     <ImageView
-        android:id="@+id/pic_image_view"
+        android:id="@+id/picImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"

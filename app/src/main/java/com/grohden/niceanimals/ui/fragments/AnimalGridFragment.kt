@@ -55,7 +55,11 @@ class AnimalGridFragment : BaseFragment() {
         animalType = arguments!!.getEnum(ANIMAL_TYPE) as AnimalType
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.animal_grid_fragment, container, false)
     }
 
@@ -76,24 +80,24 @@ class AnimalGridFragment : BaseFragment() {
             // FIXME: what happens when you try to refresh while loading more?
             // FIXME: crash, that`s what happens. (realm query vs realm delete breaks)
             niceAnimalsService
-                    .refreshAnimalType(animalType)
-                    .subscribe { _, _ -> swipeRefresher.isRefreshing = false }
+                .refreshAnimalType(animalType)
+                .subscribe { _, _ -> swipeRefresher.isRefreshing = false }
         }
     }
 
     private fun createCollectionAdapter(): NiceCollectionAdapter {
         val niceAnimals = Realm.getDefaultInstance()
-                .where<NiceAnimal>(NiceAnimal::class.java)
-                .isEnum("type", animalType)
-                .findAll()
+            .where(NiceAnimal::class.java)
+            .isEnum("type", animalType)
+            .findAll()
 
         val niceAdapter = NiceCollectionAdapter(niceAnimals, animalType)
 
         niceAdapter
-                .onReachBottom()
-                .filter { !isLoadingMore }
-                .subscribe { loadMoreNiceImages() }
-                .also { disposables.add(it) }
+            .onReachBottom()
+            .filter { !isLoadingMore }
+            .subscribe { loadMoreNiceImages() }
+            .also { disposables.add(it) }
 
         return niceAdapter
     }
@@ -116,9 +120,9 @@ class AnimalGridFragment : BaseFragment() {
 
         isLoadingMore = true
         niceAnimalsService
-                .fetchAndPersistMore(animalType)
-                .subscribe { _, _ ->
-                    isLoadingMore = false
-                }.also { disposables.add(it) }
+            .fetchAndPersistMore(animalType)
+            .subscribe { _, _ ->
+                isLoadingMore = false
+            }.also { disposables.add(it) }
     }
 }

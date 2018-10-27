@@ -7,12 +7,12 @@
     tools:context=".ui.activities.GalleryActivity">
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/gallery_image"
+        android:id="@+id/galleryImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <ProgressBar
-        android:id="@+id/gallery_image_loader"
+        android:id="@+id/galleryImageLoader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
