@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/na_card_view"
@@ -23,4 +23,4 @@
         android:contentDescription="@string/todo"
         android:minHeight="@dimen/min_image_height"
         tools:src="@tools:sample/backgrounds/scenic" />
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

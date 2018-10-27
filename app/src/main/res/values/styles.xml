@@ -1,19 +1,24 @@
 <resources>
 
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+
     </style>
 
+    <style name="ToolbarTheme" parent="Base.V26.Widget.AppCompat.Toolbar">
+    </style>
 
-    <style name="SplashScreenTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="toolbarStyle">@style/ToolbarTheme</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/holo_orange_dark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="ImmersiveTheme" parent="SplashScreenTheme">

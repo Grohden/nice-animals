@@ -8,20 +8,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity">
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/appToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:title="@string/app_name" />
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/animalTypeTab"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         app:tabMode="fixed" />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/animalGridPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

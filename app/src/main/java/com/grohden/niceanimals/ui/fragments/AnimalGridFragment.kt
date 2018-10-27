@@ -2,8 +2,8 @@ package com.grohden.niceanimals.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.GridLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +16,7 @@ import com.grohden.niceanimals.ui.base.BaseFragment
 import com.grohden.niceanimals.ui.extensions.getEnum
 import com.grohden.niceanimals.ui.extensions.isEnum
 import com.grohden.niceanimals.ui.extensions.putEnum
+import io.reactivex.disposables.CompositeDisposable
 import io.realm.Realm
 import kotlinx.android.synthetic.main.animal_grid_fragment.*
 import org.koin.android.ext.android.inject
@@ -37,6 +38,8 @@ class AnimalGridFragment : BaseFragment() {
         }
 
     }
+
+    private val disposables = CompositeDisposable()
 
     private val niceAnimalsService: NiceAnimalsService by inject()
 
@@ -64,6 +67,11 @@ class AnimalGridFragment : BaseFragment() {
         configureRefresher()
     }
 
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
+    }
+
     private fun configureRefresher() {
         swipeRefresher.setColorSchemeColors(primaryDark)
         swipeRefresher.setOnRefreshListener {
@@ -87,6 +95,7 @@ class AnimalGridFragment : BaseFragment() {
                 .onReachBottom()
                 .filter { !isLoadingMore }
                 .subscribe { loadMoreNiceImages() }
+                .also { disposables.add(it) }
 
         return niceAdapter
     }
@@ -107,6 +116,7 @@ class AnimalGridFragment : BaseFragment() {
                 .fetchAndPersistMore(animalType)
                 .subscribe { _, _ ->
                     isLoadingMore = false
-                }
+                }.also { disposables.add(it) }
+
     }
 }

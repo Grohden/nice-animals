@@ -12,9 +12,7 @@ open class NiceAnimal : RealmObject {
     lateinit var pictureUrl: String
     lateinit var type: String
 
-    constructor() {
-
-    }
+    constructor() {}
 
     constructor(pictureUrl: String, animalType: AnimalType) {
         this.pictureUrl = pictureUrl
