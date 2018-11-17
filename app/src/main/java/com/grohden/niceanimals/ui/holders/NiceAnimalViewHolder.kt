@@ -6,7 +6,6 @@ import com.grohden.niceanimals.R
 import com.grohden.niceanimals.extensions.at
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
-import com.grohden.niceanimals.ui.activities.GalleryActivity
 import com.jakewharton.rxbinding2.view.clicks
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.animal_card.view.*
@@ -35,12 +34,11 @@ class NiceAnimalViewHolder(private val animalCard: View, private val type: Anima
 
     private fun openFullscreenImageActivity() {
         val context = animalCard.picImageView.context!!
-        val intent = GalleryActivity.createIntent(
+
+        blade.I.startGalleryActivity(
             context,
             adapterPosition,
             type
         )
-
-        context.startActivity(intent)
     }
 }

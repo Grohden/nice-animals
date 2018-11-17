@@ -5,15 +5,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import blade.Blade
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.ui.adapters.TabPageAdapter
 import com.grohden.niceanimals.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+@Blade
 class MainActivity : BaseActivity() {
 
     companion object {
-        val projectURL = Uri.parse("https://github.com/Grohden/nice-animals")
+        val projectURL: Uri = Uri.parse("https://github.com/Grohden/nice-animals")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

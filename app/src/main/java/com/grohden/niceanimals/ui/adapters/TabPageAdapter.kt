@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.grohden.niceanimals.shibe.service.AnimalType
-import com.grohden.niceanimals.ui.fragments.AnimalGridFragment
 
 class TabPageAdapter(manager: FragmentManager, val context: Context) :
     FragmentPagerAdapter(manager) {
@@ -18,7 +17,7 @@ class TabPageAdapter(manager: FragmentManager, val context: Context) :
     }
 
     override fun getItem(position: Int): Fragment {
-        return AnimalGridFragment.newInstance(
+        return blade.F.newAnimalGridFragment(
             typesMap.values.elementAt(position)
         )
     }

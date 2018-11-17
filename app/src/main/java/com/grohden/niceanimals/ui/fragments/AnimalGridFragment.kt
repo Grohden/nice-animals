@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import blade.Arg
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.adapters.NiceCollectionAdapter
 import com.grohden.niceanimals.ui.base.BaseFragment
-import com.grohden.niceanimals.ui.extensions.getEnum
 import com.grohden.niceanimals.ui.extensions.isEnum
-import com.grohden.niceanimals.ui.extensions.putEnum
 import io.reactivex.disposables.CompositeDisposable
 import io.realm.Realm
 import kotlinx.android.synthetic.main.animal_grid_fragment.*
@@ -25,16 +24,6 @@ class AnimalGridFragment : BaseFragment() {
 
     companion object {
         private const val COLUMN_SPAN = 2
-        private const val ANIMAL_TYPE = "ANIMAL_TYPE"
-
-        fun newInstance(animalType: AnimalType): AnimalGridFragment {
-            val args = Bundle()
-            args.putEnum(ANIMAL_TYPE, animalType)
-
-            val fragment = AnimalGridFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 
     private val disposables = CompositeDisposable()
@@ -43,7 +32,8 @@ class AnimalGridFragment : BaseFragment() {
 
     private var isLoadingMore = false
 
-    private lateinit var animalType: AnimalType
+    @Arg
+    lateinit var animalType: AnimalType
 
     private val primaryDark by lazy {
         ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
@@ -51,8 +41,6 @@ class AnimalGridFragment : BaseFragment() {
 
     override fun onAttach(activity: Context) {
         super.onAttach(activity)
-
-        animalType = arguments!!.getEnum(ANIMAL_TYPE) as AnimalType
     }
 
     override fun onCreateView(

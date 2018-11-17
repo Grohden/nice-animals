@@ -4,7 +4,6 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.koin.dsl.module.module
 
-// just declare it
 val appModule = module {
     single {
         createRealmConfig()

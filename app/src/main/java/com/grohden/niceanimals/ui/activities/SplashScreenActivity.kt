@@ -1,6 +1,5 @@
 package com.grohden.niceanimals.ui.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -10,6 +9,7 @@ import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.ui.base.BaseActivity
+import io.reactivex.disposables.CompositeDisposable
 import io.realm.Realm
 import org.koin.android.ext.android.inject
 
@@ -22,6 +22,8 @@ class SplashScreenActivity : BaseActivity() {
     private val realm: Realm by inject()
 
     private val niceAnimalsService: NiceAnimalsService by inject()
+
+    private val disposables = CompositeDisposable()
 
     private fun findFirstAnimal(): NiceAnimal? {
         return realm
@@ -46,6 +48,11 @@ class SplashScreenActivity : BaseActivity() {
         }
     }
 
+    override fun onDestroy() {
+        disposables.clear()
+        super.onDestroy()
+    }
+
     /**
      * Handles app first initialization (actually, it is called only when
      * it doesn't find any animal in realm DB)
@@ -64,16 +71,11 @@ class SplashScreenActivity : BaseActivity() {
                 } else {
                     goToMainScreen()
                 }
-            }
+            }.also { disposables.add(it) }
     }
 
     private fun goToMainScreen() {
-        val intent = Intent(
-            this,
-            MainActivity::class.java
-        )
-
-        startActivity(intent)
+        blade.I.startMainActivity(this)
         finish()
     }
 

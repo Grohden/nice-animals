@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jmailen.kotlinter'
 apply plugin: 'realm-android'
+apply plugin: 'blade'
 
 ext {
     rxBindingsVersion = "2.1.1"
