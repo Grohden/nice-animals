@@ -2,6 +2,7 @@ package com.grohden.niceanimals.services
 
 import android.util.Log
 import com.grohden.niceanimals.realm.entities.NiceAnimal
+import com.grohden.niceanimals.realm.entities.NiceAnimalFields
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.shibe.service.ShibeService
 import io.reactivex.Single
@@ -64,7 +65,7 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
             .map { animals ->
                 Realm.getDefaultInstance().executeTransaction { realm ->
                     realm.where(NiceAnimal::class.java)
-                        .equalTo("type", type.name)
+                        .equalTo(NiceAnimalFields.TYPE, type.name)
                         .findAll()
                         .deleteAllFromRealm()
 

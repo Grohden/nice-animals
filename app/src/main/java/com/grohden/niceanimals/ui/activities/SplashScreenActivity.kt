@@ -27,7 +27,7 @@ class SplashScreenActivity : BaseActivity() {
 
     private fun findFirstAnimal(): NiceAnimal? {
         return realm
-            .where<NiceAnimal>(NiceAnimal::class.java)
+            .where(NiceAnimal::class.java)
             .findFirst()
     }
 

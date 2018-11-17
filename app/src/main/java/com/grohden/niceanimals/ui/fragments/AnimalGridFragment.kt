@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import blade.Arg
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
+import com.grohden.niceanimals.realm.entities.NiceAnimalFields
 import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.adapters.NiceCollectionAdapter
@@ -76,7 +77,7 @@ class AnimalGridFragment : BaseFragment() {
     private fun createCollectionAdapter(): NiceCollectionAdapter {
         val niceAnimals = Realm.getDefaultInstance()
             .where(NiceAnimal::class.java)
-            .isEnum("type", animalType)
+            .isEnum(NiceAnimalFields.TYPE, animalType)
             .findAll()
 
         val niceAdapter = NiceCollectionAdapter(niceAnimals, animalType)

@@ -7,6 +7,7 @@ import blade.Blade
 import blade.Extra
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
+import com.grohden.niceanimals.realm.entities.NiceAnimalFields
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.adapters.GalleryAdapter
 import com.grohden.niceanimals.ui.base.BaseActivity
@@ -34,7 +35,7 @@ open class GalleryActivity : BaseActivity() {
     private fun configureRV(position: Int, animalType: AnimalType) {
         val niceAnimals = Realm.getDefaultInstance()
             .where<NiceAnimal>(NiceAnimal::class.java)
-            .isEnum("type", animalType)
+            .isEnum(NiceAnimalFields.TYPE, animalType)
             .findAll()
 
         val manager = LinearLayoutManager(

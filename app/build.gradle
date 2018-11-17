@@ -35,9 +35,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Realm fields
+    kapt 'dk.ilios:realmfieldnameshelper:1.1.1'
 
     // RX
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation "com.jakewharton.rxbinding2:rxbinding:$rxBindingsVersion"
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$rxBindingsVersion"
@@ -45,7 +47,7 @@ dependencies {
 
     //Support libs
     //FIXME: do i need v4 AND v7?
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'

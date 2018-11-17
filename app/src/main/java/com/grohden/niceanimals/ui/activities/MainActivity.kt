@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import blade.Blade
+import com.grohden.niceanimals.AppConstants
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.ui.adapters.TabPageAdapter
 import com.grohden.niceanimals.ui.base.BaseActivity
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
 
     companion object {
-        val projectURL: Uri = Uri.parse("https://github.com/Grohden/nice-animals")
+        val githubUrl: Uri = Uri.parse(AppConstants.PROJECT_URL)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_github -> {
-                val browserIntent = Intent(Intent.ACTION_VIEW, projectURL)
+                val browserIntent = Intent(Intent.ACTION_VIEW, githubUrl)
                 startActivity(browserIntent)
             }
         }
