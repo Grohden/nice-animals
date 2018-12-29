@@ -3,22 +3,34 @@ package com.grohden.niceanimals.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.grohden.niceanimals.AppConstants
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.realm.entities.NiceAnimal
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.ui.holders.NiceAnimalViewHolder
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
+import java.util.concurrent.TimeUnit
 
 class NiceCollectionAdapter(results: RealmResults<NiceAnimal>, private val type: AnimalType) :
     RealmRecyclerViewAdapter<NiceAnimal, NiceAnimalViewHolder>(results, true) {
-    private val onReachBottomSubject by lazy {
-        PublishSubject.create<Int>()
-    }
+
+    private val onReachBottomSubject = PublishSubject.create<Int>()
+    private val clickSubject = PublishSubject.create<Int>()
 
     fun onReachBottom(): Observable<Int> = onReachBottomSubject
+
+    fun observeClicks(): Observable<Int> {
+        return clickSubject
+            .throttleWithTimeout(
+                AppConstants.CLICK_THROTTLE_TIMEOUT,
+                TimeUnit.MILLISECONDS,
+                AndroidSchedulers.mainThread()
+            )
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NiceAnimalViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,7 +40,7 @@ class NiceCollectionAdapter(results: RealmResults<NiceAnimal>, private val type:
             false
         )
 
-        return NiceAnimalViewHolder(v, type)
+        return NiceAnimalViewHolder(v, clickSubject)
     }
 
     override fun onBindViewHolder(niceHolder: NiceAnimalViewHolder, position: Int) {

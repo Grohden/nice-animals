@@ -5,40 +5,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.extensions.at
 import com.grohden.niceanimals.realm.entities.NiceAnimal
-import com.grohden.niceanimals.shibe.service.AnimalType
-import com.jakewharton.rxbinding2.view.clicks
 import com.squareup.picasso.Picasso
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.animal_card.view.*
 
-class NiceAnimalViewHolder(private val animalCard: View, private val type: AnimalType) :
-    RecyclerView.ViewHolder(animalCard) {
+class NiceAnimalViewHolder(private val view: View, clickSubject: PublishSubject<Int>) :
+    RecyclerView.ViewHolder(view) {
 
     init {
-        animalCard
-            .picImageView
-            .clicks()
-            .subscribe { openFullscreenImageActivity() }
+        view.setOnClickListener { clickSubject.onNext(adapterPosition) }
     }
 
     fun bindAnimal(animal: NiceAnimal) {
-        animalCard.picProgressBar.visibility = View.VISIBLE
+        view.picProgressBar.visibility = View.VISIBLE
 
         Picasso.get()
             .load(animal.pictureUrl)
             .resizeDimen(R.dimen.min_image_width, R.dimen.min_image_height)
             .centerCrop()
-            .at(animalCard.picImageView) {
-                animalCard.picProgressBar.visibility = View.GONE
+            .at(view.picImageView) {
+                view.picProgressBar.visibility = View.GONE
             }
-    }
-
-    private fun openFullscreenImageActivity() {
-        val context = animalCard.picImageView.context!!
-
-        blade.I.startGalleryActivity(
-            context,
-            adapterPosition,
-            type
-        )
     }
 }

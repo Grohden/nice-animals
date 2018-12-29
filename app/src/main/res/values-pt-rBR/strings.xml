@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="see_on_github">Ver no Github</string>
+    <string name="error_loading_animals">Erro ao carregar os animais :/</string>
 </resources>

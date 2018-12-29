@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    tools:context=".ui.activities.MainActivity">
+    tools:context=".ui.fragments.ContentTabsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/animalListRV"

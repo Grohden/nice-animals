@@ -1,11 +1,11 @@
 package com.grohden.niceanimals.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import blade.Arg
 import com.grohden.niceanimals.R
@@ -38,10 +38,6 @@ class AnimalGridFragment : BaseFragment() {
 
     private val primaryDark by lazy {
         ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
-    }
-
-    override fun onAttach(activity: Context) {
-        super.onAttach(activity)
     }
 
     override fun onCreateView(
@@ -88,7 +84,24 @@ class AnimalGridFragment : BaseFragment() {
             .subscribe { loadMoreNiceImages() }
             .also { disposables.add(it) }
 
+        niceAdapter
+            .observeClicks()
+            .subscribe { position ->
+                openAnimalPicture(position)
+            }.also { disposables.add(it) }
+
         return niceAdapter
+    }
+
+    private fun openAnimalPicture(position: Int) {
+        val directions = ContentTabsFragmentDirections.openAnimalPicture(
+            position,
+            animalType
+        )
+
+        NavHostFragment
+            .findNavController(this@AnimalGridFragment)
+            .navigate(directions)
     }
 
     private fun configureNiceAnimalsRV() {

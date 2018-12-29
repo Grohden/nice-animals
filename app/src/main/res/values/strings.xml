@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name" translatable="false">Nice Animals</string>
     <string name="see_on_github">See on Github</string>
+    <string name="error_loading_animals">Exception trying to get animals :/</string>
 </resources>

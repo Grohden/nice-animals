@@ -6,7 +6,7 @@
     android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.activities.SplashScreenActivity">
+    tools:context=".ui.fragments.SplashScreenFragment">
 
 
     <ImageView
