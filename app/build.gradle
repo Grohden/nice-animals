@@ -59,7 +59,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
     //Realm
-    implementation 'io.realm:android-adapters:2.1.1'
+    implementation 'io.realm:android-adapters:3.1.0'
 
     //Image related
     implementation 'com.squareup.picasso:picasso:2.71828'
