@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import blade.Arg
 import com.grohden.niceanimals.R
@@ -99,9 +99,7 @@ class AnimalGridFragment : BaseFragment() {
             animalType
         )
 
-        NavHostFragment
-            .findNavController(this@AnimalGridFragment)
-            .navigate(directions)
+        findNavController(this).navigate(directions)
     }
 
     private fun configureNiceAnimalsRV() {

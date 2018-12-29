@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.gallery.*
 
 open class GalleryFragment : BaseFragment() {
 
-    var imagePosition: Int = 0
+    private var imagePosition: Int = 0
     lateinit var animalType: AnimalType
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ open class GalleryFragment : BaseFragment() {
 
     private fun configureRV(position: Int, animalType: AnimalType) {
         val niceAnimals = Realm.getDefaultInstance()
-            .where<NiceAnimal>(NiceAnimal::class.java)
+            .where(NiceAnimal::class.java)
             .isEnum(NiceAnimalFields.TYPE, animalType)
             .findAll()
 
