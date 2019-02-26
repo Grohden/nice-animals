@@ -13,6 +13,7 @@
     </style>
 
     <style name="SplashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="toolbarStyle">@style/ToolbarTheme</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>

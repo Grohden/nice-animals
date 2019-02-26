@@ -49,7 +49,7 @@ class SplashScreenFragment : BaseFragment() {
 
         if (findFirstAnimal() != null) {
             Handler().postDelayed(
-                { this.goToMainScreen() },
+                { goToMainScreen() },
                 DEFAULT_SCREEN_TIME.toLong()
             )
         } else {
@@ -86,7 +86,7 @@ class SplashScreenFragment : BaseFragment() {
     private fun goToMainScreen() {
         NavHostFragment
             .findNavController(this)
-            .navigate(R.id.goToMain)
+            .navigate(SplashScreenFragmentDirections.goToMain())
     }
 
     companion object {

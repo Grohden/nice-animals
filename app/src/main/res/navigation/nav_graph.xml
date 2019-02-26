@@ -13,7 +13,8 @@
         <action
             android:id="@+id/goToMain"
             app:destination="@+id/contentTabsFragment"
-            app:popUpTo="@+id/splashScreenFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -24,7 +25,8 @@
         tools:layout="@layout/animal_grid_fragment">
         <action
             android:id="@+id/openAnimalPicture"
-            app:destination="@id/galleryFragment" />
+            app:destination="@id/galleryFragment"
+            />
     </fragment>
 
     <fragment

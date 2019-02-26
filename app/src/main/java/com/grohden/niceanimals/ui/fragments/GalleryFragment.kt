@@ -23,7 +23,6 @@ open class GalleryFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val bundle = GalleryFragmentArgs.fromBundle(arguments!!)
         imagePosition = bundle.imagePosition
         animalType = bundle.animalType
