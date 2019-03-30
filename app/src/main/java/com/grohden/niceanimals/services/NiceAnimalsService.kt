@@ -28,9 +28,9 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
 
   private fun buildAnimalsFromList(urlList: List<URL>, type: AnimalType): List<NiceAnimal> {
     return urlList
-        .map { it.toString() }
-        .map { NiceAnimal(it, type) }
-        .toList()
+      .map { it.toString() }
+      .map { NiceAnimal(it, type) }
+      .toList()
   }
 
   /**
@@ -40,11 +40,11 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
    */
   private fun fetchAllTypes(): Single<List<NiceAnimal>> {
     return Single.zip(
-        fetchMoreAnimals(AnimalType.shibes),
-        fetchMoreAnimals(AnimalType.birds),
-        fetchMoreAnimals(AnimalType.cats),
-        Function3<List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>>
-        { shibes, birds, cats -> (shibes + birds + cats) }
+      fetchMoreAnimals(AnimalType.shibes),
+      fetchMoreAnimals(AnimalType.birds),
+      fetchMoreAnimals(AnimalType.cats),
+      Function3<List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>, List<NiceAnimal>>
+      { shibes, birds, cats -> (shibes + birds + cats) }
     )
   }
 
@@ -58,21 +58,21 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
    * @return a completable future with those new animals to chain into another operation
    */
   fun refreshAnimalType(
-      type: AnimalType,
-      count: Int = DEFAULT_IMAGE_FETCH_COUNT
+    type: AnimalType,
+    count: Int = DEFAULT_IMAGE_FETCH_COUNT
   ): Single<List<NiceAnimal>> {
     return fetchMoreAnimals(type, count)
-        .map { animals ->
-          Realm.getDefaultInstance().executeTransaction { realm ->
-            realm.where(NiceAnimal::class.java)
-                .equalTo(NiceAnimalFields.TYPE, type.name)
-                .findAll()
-                .deleteAllFromRealm()
+      .map { animals ->
+        Realm.getDefaultInstance().executeTransaction { realm ->
+          realm.where(NiceAnimal::class.java)
+            .equalTo(NiceAnimalFields.TYPE, type.name)
+            .findAll()
+            .deleteAllFromRealm()
 
-            realm.copyToRealm(animals.shuffled())
-          }
-          animals
+          realm.copyToRealm(animals.shuffled())
         }
+        animals
+      }
   }
 
   /**
@@ -83,12 +83,12 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
    * @return a observable to receive the values from
    */
   private fun fetchMoreAnimals(
-      type: AnimalType,
-      count: Int = DEFAULT_IMAGE_FETCH_COUNT
+    type: AnimalType,
+    count: Int = DEFAULT_IMAGE_FETCH_COUNT
   ): Single<List<NiceAnimal>> {
     val future = shibeService.fetchNiceImageUrls(type, count)
-        .subscribeOn(Schedulers.newThread())
-        .observeOn(AndroidSchedulers.mainThread())
+      .subscribeOn(Schedulers.newThread())
+      .observeOn(AndroidSchedulers.mainThread())
 
     return future.map { buildAnimalsFromList(it, type) }
   }
@@ -102,10 +102,10 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
   fun fetchAndPersistAllTypes(): Single<List<NiceAnimal>> {
 
     return fetchAllTypes()
-        .map { animals ->
-          persistListIntoRealm(animals.shuffled())
-          animals
-        }
+      .map { animals ->
+        persistListIntoRealm(animals.shuffled())
+        animals
+      }
   }
 
   /**
@@ -116,8 +116,8 @@ class NiceAnimalsService(private var shibeService: ShibeService) {
    * @return a completable future with those new animals to chain into another operation
    */
   fun fetchAndPersistMore(
-      type: AnimalType,
-      count: Int = DEFAULT_IMAGE_FETCH_COUNT
+    type: AnimalType,
+    count: Int = DEFAULT_IMAGE_FETCH_COUNT
   ): Single<List<NiceAnimal>> {
 
     return fetchMoreAnimals(type, count).map { animals ->

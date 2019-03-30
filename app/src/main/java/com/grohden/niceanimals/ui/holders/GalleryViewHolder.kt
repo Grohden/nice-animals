@@ -9,13 +9,13 @@ import kotlinx.android.synthetic.main.gallery_image.view.*
 
 class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bindAnimal(animal: NiceAnimal) {
-        Picasso.get()
-            .load(animal.pictureUrl)
-            .fit()
-            .centerInside()
-            .at(itemView.galleryImage) {
-                itemView.galleryImageLoader.visibility = View.GONE
-            }
-    }
+  fun bindAnimal(animal: NiceAnimal) {
+    Picasso.get()
+      .load(animal.pictureUrl)
+      .fit()
+      .centerInside()
+      .at(itemView.galleryImage) {
+        itemView.galleryImageLoader.visibility = View.GONE
+      }
+  }
 }

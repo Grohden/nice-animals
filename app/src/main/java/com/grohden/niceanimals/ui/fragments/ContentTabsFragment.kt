@@ -17,48 +17,48 @@ import kotlinx.android.synthetic.main.main_content.*
 
 class ContentTabsFragment : BaseFragment() {
 
-    companion object {
-        val githubUrl: Uri = Uri.parse(AppConstants.PROJECT_URL)
-    }
+  companion object {
+    val githubUrl: Uri = Uri.parse(AppConstants.PROJECT_URL)
+  }
 
-    override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.main_content, container, false)
-    }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    return inflater.inflate(R.layout.main_content, container, false)
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-        configureTabs()
-    }
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
+    configureTabs()
+  }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+  override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+    inflater.inflate(R.menu.main_menu, menu)
+    super.onCreateOptionsMenu(menu, inflater)
+  }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_github -> {
-                val browserIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    githubUrl
-                )
-                startActivity(browserIntent)
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun configureTabs() {
-        animalGridPager.adapter = TabPageAdapter(
-            requireFragmentManager(),
-            requireContext()
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.menu_github -> {
+        val browserIntent = Intent(
+          Intent.ACTION_VIEW,
+          githubUrl
         )
-
-        animalTypeTab.setupWithViewPager(animalGridPager)
+        startActivity(browserIntent)
+      }
     }
+    return super.onOptionsItemSelected(item)
+  }
+
+  private fun configureTabs() {
+    animalGridPager.adapter = TabPageAdapter(
+      requireFragmentManager(),
+      requireContext()
+    )
+
+    animalTypeTab.setupWithViewPager(animalGridPager)
+  }
 }

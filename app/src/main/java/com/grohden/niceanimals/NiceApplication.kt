@@ -9,13 +9,13 @@ import org.koin.android.ext.android.startKoin
 
 class NiceApplication : Application() {
 
-    private val realmConfig: RealmConfiguration by inject()
+  private val realmConfig: RealmConfiguration by inject()
 
-    override fun onCreate() {
-        super.onCreate()
-        Realm.init(this)
-        startKoin(this, niceApp)
+  override fun onCreate() {
+    super.onCreate()
+    Realm.init(this)
+    startKoin(this, niceApp)
 
-        Realm.setDefaultConfiguration(realmConfig)
-    }
+    Realm.setDefaultConfiguration(realmConfig)
+  }
 }

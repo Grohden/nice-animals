@@ -16,46 +16,46 @@ import io.realm.RealmResults
 import java.util.concurrent.TimeUnit
 
 class NiceCollectionAdapter(results: RealmResults<NiceAnimal>, private val type: AnimalType) :
-    RealmRecyclerViewAdapter<NiceAnimal, NiceAnimalViewHolder>(results, true) {
+  RealmRecyclerViewAdapter<NiceAnimal, NiceAnimalViewHolder>(results, true) {
 
-    private val onReachBottomSubject = PublishSubject.create<Int>()
-    private val clickSubject = PublishSubject.create<Int>()
+  private val onReachBottomSubject = PublishSubject.create<Int>()
+  private val clickSubject = PublishSubject.create<Int>()
 
-    fun onReachBottom(): Observable<Int> = onReachBottomSubject
+  fun onReachBottom(): Observable<Int> = onReachBottomSubject
 
-    fun observeClicks(): Observable<Int> {
-        return clickSubject
-            .throttleWithTimeout(
-                AppConstants.CLICK_THROTTLE_TIMEOUT,
-                TimeUnit.MILLISECONDS,
-                AndroidSchedulers.mainThread()
-            )
+  fun observeClicks(): Observable<Int> {
+    return clickSubject
+      .throttleWithTimeout(
+        AppConstants.CLICK_THROTTLE_TIMEOUT,
+        TimeUnit.MILLISECONDS,
+        AndroidSchedulers.mainThread()
+      )
+  }
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NiceAnimalViewHolder {
+    val inflater = LayoutInflater.from(parent.context)
+    val v = inflater.inflate(
+      R.layout.animal_card,
+      parent,
+      false
+    )
+
+    return NiceAnimalViewHolder(v, clickSubject)
+  }
+
+  override fun onBindViewHolder(niceHolder: NiceAnimalViewHolder, position: Int) {
+    val animalURL = getItem(position)
+    niceHolder.bindAnimal(animalURL!!)
+
+    data?.size?.let { size ->
+      if (position == size - 1) {
+        onReachBottomSubject.onNext(position)
+      }
     }
+  }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NiceAnimalViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(
-            R.layout.animal_card,
-            parent,
-            false
-        )
-
-        return NiceAnimalViewHolder(v, clickSubject)
-    }
-
-    override fun onBindViewHolder(niceHolder: NiceAnimalViewHolder, position: Int) {
-        val animalURL = getItem(position)
-        niceHolder.bindAnimal(animalURL!!)
-
-        data?.size?.let { size ->
-            if (position == size - 1) {
-                onReachBottomSubject.onNext(position)
-            }
-        }
-    }
-
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView)
-        onReachBottomSubject.onComplete()
-    }
+  override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+    super.onDetachedFromRecyclerView(recyclerView)
+    onReachBottomSubject.onComplete()
+  }
 }

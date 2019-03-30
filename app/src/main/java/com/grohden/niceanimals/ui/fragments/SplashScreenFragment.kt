@@ -22,74 +22,74 @@ import org.koin.android.ext.android.inject
  */
 class SplashScreenFragment : BaseFragment() {
 
-    private val realm: Realm by inject()
+  private val realm: Realm by inject()
 
-    private val niceAnimalsService: NiceAnimalsService by inject()
+  private val niceAnimalsService: NiceAnimalsService by inject()
 
-    private val disposables = CompositeDisposable()
+  private val disposables = CompositeDisposable()
 
-    private fun findFirstAnimal(): NiceAnimal? {
-        return realm
-            .where(NiceAnimal::class.java)
-            .findFirst()
+  private fun findFirstAnimal(): NiceAnimal? {
+    return realm
+      .where(NiceAnimal::class.java)
+      .findFirst()
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    return inflater.inflate(R.layout.activity_splash_screen, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    // window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+
+    if (findFirstAnimal() != null) {
+      Handler().postDelayed(
+        { goToMainScreen() },
+        DEFAULT_SCREEN_TIME.toLong()
+      )
+    } else {
+      handleEmptyDBInitialization()
     }
+  }
 
-    override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.activity_splash_screen, container, false)
-    }
+  override fun onDestroy() {
+    disposables.clear()
+    super.onDestroy()
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-
-        if (findFirstAnimal() != null) {
-            Handler().postDelayed(
-                { goToMainScreen() },
-                DEFAULT_SCREEN_TIME.toLong()
-            )
+  /**
+   * Handles app first initialization (actually, it is called only when
+   * it doesn't find any animal in realm DB)
+   */
+  private fun handleEmptyDBInitialization() {
+    niceAnimalsService
+      .fetchAndPersistAllTypes()
+      .subscribe { _, ex ->
+        if (ex != null) {
+          Toast.makeText(
+            requireContext(),
+            R.string.error_loading_animals,
+            Toast.LENGTH_LONG
+          ).show()
+          Log.e("SplashScreenFragment", "Error at empty DB initialization", ex)
         } else {
-            handleEmptyDBInitialization()
+          goToMainScreen()
         }
-    }
+      }.also { disposables.add(it) }
+  }
 
-    override fun onDestroy() {
-        disposables.clear()
-        super.onDestroy()
-    }
+  private fun goToMainScreen() {
+    NavHostFragment
+      .findNavController(this)
+      .navigate(SplashScreenFragmentDirections.goToMain())
+  }
 
-    /**
-     * Handles app first initialization (actually, it is called only when
-     * it doesn't find any animal in realm DB)
-     */
-    private fun handleEmptyDBInitialization() {
-        niceAnimalsService
-            .fetchAndPersistAllTypes()
-            .subscribe { _, ex ->
-                if (ex != null) {
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.error_loading_animals,
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Log.e("SplashScreenFragment", "Error at empty DB initialization", ex)
-                } else {
-                    goToMainScreen()
-                }
-            }.also { disposables.add(it) }
-    }
-
-    private fun goToMainScreen() {
-        NavHostFragment
-            .findNavController(this)
-            .navigate(SplashScreenFragmentDirections.goToMain())
-    }
-
-    companion object {
-        private const val DEFAULT_SCREEN_TIME = 1000
-    }
+  companion object {
+    private const val DEFAULT_SCREEN_TIME = 1000
+  }
 }

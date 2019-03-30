@@ -6,11 +6,11 @@ class FinishCallback(
   private val onFinish: (() -> Unit)
 ) : Callback {
 
-    override fun onSuccess() {
-        onFinish()
-    }
+  override fun onSuccess() {
+    onFinish()
+  }
 
-    override fun onError(e: Exception?) {
-        onFinish()
-    }
+  override fun onError(e: Exception?) {
+    onFinish()
+  }
 }

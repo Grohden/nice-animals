@@ -5,19 +5,19 @@ import io.realm.RealmConfiguration
 import org.koin.dsl.module.module
 
 val appModule = module {
-    single {
-        createRealmConfig()
-    }
-    factory {
-        Realm.getDefaultInstance()
-    }
+  single {
+    createRealmConfig()
+  }
+  factory {
+    Realm.getDefaultInstance()
+  }
 }
 
 fun createRealmConfig(): RealmConfiguration {
-    return RealmConfiguration
-        .Builder()
-        .deleteRealmIfMigrationNeeded()
-        .build()
+  return RealmConfiguration
+    .Builder()
+    .deleteRealmIfMigrationNeeded()
+    .build()
 }
 
 val niceApp = listOf(appModule, netModule)

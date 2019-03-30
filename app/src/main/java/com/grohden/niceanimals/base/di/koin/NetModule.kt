@@ -13,41 +13,41 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val netModule = module {
-    single {
-        GsonBuilder().create()
-    }
-    single {
-        createOkHttpClient()
-    }
-    single {
-        NiceAnimalsService(get())
-    }
-    single {
-        createWebService<ShibeService>(get(), SHIBE_SERVICE)
-    }
+  single {
+    GsonBuilder().create()
+  }
+  single {
+    createOkHttpClient()
+  }
+  single {
+    NiceAnimalsService(get())
+  }
+  single {
+    createWebService<ShibeService>(get(), SHIBE_SERVICE)
+  }
 }
 
 object WebserviceUrls {
-    const val SHIBE_SERVICE = "https://shibe.online/api/"
+  const val SHIBE_SERVICE = "https://shibe.online/api/"
 }
 
 fun createOkHttpClient(): OkHttpClient {
-    val httpLoggingInterceptor = HttpLoggingInterceptor()
-    httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
+  val httpLoggingInterceptor = HttpLoggingInterceptor()
+  httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 
-    return OkHttpClient.Builder()
-        .connectTimeout(60L, TimeUnit.SECONDS)
-        .readTimeout(60L, TimeUnit.SECONDS)
-        .addInterceptor(httpLoggingInterceptor)
-        .build()
+  return OkHttpClient.Builder()
+    .connectTimeout(60L, TimeUnit.SECONDS)
+    .readTimeout(60L, TimeUnit.SECONDS)
+    .addInterceptor(httpLoggingInterceptor)
+    .build()
 }
 
 inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String): T {
-    return Retrofit.Builder()
-        .baseUrl(url)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(T::class.java)
+  return Retrofit.Builder()
+    .baseUrl(url)
+    .client(okHttpClient)
+    .addConverterFactory(GsonConverterFactory.create())
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    .build()
+    .create(T::class.java)
 }

@@ -8,14 +8,14 @@ import io.realm.annotations.RealmClass
 @RealmClass
 open class NiceAnimal : RealmObject {
 
-    @PrimaryKey
-    lateinit var pictureUrl: String
-    lateinit var type: String
+  @PrimaryKey
+  lateinit var pictureUrl: String
+  lateinit var type: String
 
-    constructor() {}
+  constructor() {}
 
-    constructor(pictureUrl: String, animalType: AnimalType) {
-        this.pictureUrl = pictureUrl
-        this.type = animalType.name
-    }
+  constructor(pictureUrl: String, animalType: AnimalType) {
+    this.pictureUrl = pictureUrl
+    this.type = animalType.name
+  }
 }
