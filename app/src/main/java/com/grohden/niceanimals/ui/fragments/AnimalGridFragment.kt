@@ -41,9 +41,9 @@ class AnimalGridFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.animal_grid_fragment, container, false)
     }

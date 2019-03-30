@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.ContentTabsFragment">
+    tools:context=".ui.fragments.ContentTabsFragment"
+    >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/animalTypeTab"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        app:tabMode="fixed" />
+        app:tabMode="fixed"
+        />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/animalGridPager"
@@ -21,6 +24,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@android:color/white"
-        tools:listitem="@layout/animal_grid_fragment" />
+        tools:listitem="@layout/animal_grid_fragment"
+        />
 
 </LinearLayout>

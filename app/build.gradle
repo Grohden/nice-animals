@@ -86,7 +86,7 @@ repositories {
 
 kotlinter {
     ignoreFailures = false
-    indentSize = 4
-    continuationIndentSize = 4
+    indentSize = 2
+    continuationIndentSize = 2
     reporters = ['checkstyle', 'plain']
 }

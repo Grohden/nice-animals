@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".ui.fragments.GalleryFragment">
+    tools:context=".ui.fragments.GalleryFragment"
+    >
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/galleryImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@tools:sample/avatars"
+        />
 
 
     <ProgressBar
@@ -18,6 +21,7 @@
         tools:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        />
 
 </FrameLayout>
