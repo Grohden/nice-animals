@@ -18,5 +18,5 @@ interface ShibeService {
   fun fetchNiceImageUrls(
     @Path("animalType") animalType: AnimalType,
     @Query("count") count: Int?
-  ): Single<List<URL>>
+  ): Single<List<String>>
 }

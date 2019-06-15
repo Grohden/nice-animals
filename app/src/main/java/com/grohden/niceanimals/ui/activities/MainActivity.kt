@@ -9,6 +9,7 @@ import com.grohden.niceanimals.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+
   private val navController by lazy {
     findNavController(this, R.id.navHostFragment)
   }
@@ -24,14 +25,8 @@ class MainActivity : BaseActivity() {
   private fun setupNavigationListener() {
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
       when (destination.id) {
-        R.id.splashScreenFragment -> {
-          supportActionBar?.hide()
-        }
         R.id.contentTabsFragment -> {
           supportActionBar?.show()
-        }
-        R.id.galleryFragment -> {
-          supportActionBar?.hide()
         }
       }
     }
@@ -42,8 +37,7 @@ class MainActivity : BaseActivity() {
 
     val appBarConfiguration = AppBarConfiguration.Builder(
       setOf(
-        R.id.contentTabsFragment,
-        R.id.galleryFragment
+        R.id.contentTabsFragment
       )
     ).build()
 
@@ -55,6 +49,6 @@ class MainActivity : BaseActivity() {
   }
 
   override fun onSupportNavigateUp(): Boolean {
-    return navController.navigateUp()
+    return navController.navigateUp() || super.onSupportNavigateUp()
   }
 }

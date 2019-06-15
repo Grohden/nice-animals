@@ -3,51 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@+id/splashScreenFragment"
-    >
-
-    <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.grohden.niceanimals.ui.fragments.SplashScreenFragment"
-        android:label="App splash screen"
-        tools:layout="@layout/activity_splash_screen"
-        >
-        <action
-            android:id="@+id/goToMain"
-            app:destination="@+id/contentTabsFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true"
-            />
-    </fragment>
+    app:startDestination="@+id/contentTabsFragment"
+    android:id="@+id/nav_graph">
 
     <fragment
         android:id="@+id/contentTabsFragment"
-        android:name="com.grohden.niceanimals.ui.fragments.ContentTabsFragment"
+        android:name="com.grohden.niceanimals.ui.fragments.PicturesListFragment"
         android:label="Content tabs fragment"
-        tools:layout="@layout/animal_grid_fragment"
-        >
-        <action
-            android:id="@+id/openAnimalPicture"
-            app:destination="@id/galleryFragment"
-            />
-    </fragment>
-
-    <fragment
-        android:id="@+id/galleryFragment"
-        android:name="com.grohden.niceanimals.ui.fragments.GalleryFragment"
-        android:label="Gallery image"
-        tools:layout="@layout/gallery_image"
-        >
-        <argument
-            android:name="imagePosition"
-            app:argType="integer"
-            />
-        <argument
-            android:name="animalType"
-            app:argType="com.grohden.niceanimals.shibe.service.AnimalType"
-            />
-    </fragment>
+        tools:layout="@layout/fragment_picture_list"
+        />
 
 </navigation>

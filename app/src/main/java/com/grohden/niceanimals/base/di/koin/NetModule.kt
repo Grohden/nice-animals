@@ -2,7 +2,6 @@ package com.grohden.niceanimals.base.di.koin
 
 import com.google.gson.GsonBuilder
 import com.grohden.niceanimals.base.di.koin.WebserviceUrls.SHIBE_SERVICE
-import com.grohden.niceanimals.services.NiceAnimalsService
 import com.grohden.niceanimals.shibe.service.ShibeService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,9 +17,6 @@ val netModule = module {
   }
   single {
     createOkHttpClient()
-  }
-  single {
-    NiceAnimalsService(get())
   }
   single {
     createWebService<ShibeService>(get(), SHIBE_SERVICE)
