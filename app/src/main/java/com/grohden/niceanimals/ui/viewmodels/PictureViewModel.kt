@@ -5,5 +5,5 @@ import androidx.lifecycle.ViewModel
 import com.grohden.niceanimals.data.NiceAnimalPicture
 
 class PictureViewModel(picture: NiceAnimalPicture) : ViewModel() {
-  val url = ObservableField<String>(picture.url)
+  val url = ObservableField(picture.url)
 }

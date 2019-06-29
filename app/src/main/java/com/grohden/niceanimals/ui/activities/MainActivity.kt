@@ -25,8 +25,11 @@ class MainActivity : BaseActivity() {
   private fun setupNavigationListener() {
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
       when (destination.id) {
-        R.id.contentTabsFragment -> {
+        R.id.pictureListFragment -> {
           supportActionBar?.show()
+        }
+        R.id.pictureViewFragment -> {
+          supportActionBar?.hide()
         }
       }
     }
@@ -37,7 +40,8 @@ class MainActivity : BaseActivity() {
 
     val appBarConfiguration = AppBarConfiguration.Builder(
       setOf(
-        R.id.contentTabsFragment
+        R.id.pictureListFragment,
+        R.id.pictureViewFragment
       )
     ).build()
 

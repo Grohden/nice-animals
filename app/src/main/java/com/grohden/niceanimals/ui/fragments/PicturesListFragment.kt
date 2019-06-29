@@ -67,11 +67,6 @@ class PicturesListFragment : Fragment() {
 
   private fun subscribeUi(adapter: PictureAdapter) {
     viewModel.pictures.observe(viewLifecycleOwner) { pictures ->
-      /**
-       *  Plant may return null, but the [observe] extension function assumes it will not be null.
-       *  So there will be a warning（Condition `plants != null` is always `true`） here.
-       *  I am not sure if the database return data type should be defined as nullable, Such as `LiveData<List<Plant>?>` .
-       */
       if (pictures != null) adapter.submitList(pictures)
     }
   }

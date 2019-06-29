@@ -48,6 +48,7 @@ object InjectorUtil {
     return PictureListViewFactory(repository)
   }
 
+
   fun provideShibeService(): ShibeService {
     return createWebService(
       getOkHttpClient(),

@@ -3,14 +3,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/contentTabsFragment"
+    app:startDestination="@+id/pictureListFragment"
     android:id="@+id/nav_graph">
 
     <fragment
-        android:id="@+id/contentTabsFragment"
+        android:id="@+id/pictureListFragment"
         android:name="com.grohden.niceanimals.ui.fragments.PicturesListFragment"
-        android:label="Content tabs fragment"
         tools:layout="@layout/fragment_picture_list"
-        />
+        >
+        <action
+            android:id="@+id/action_pictureListFragment_to_pictureViewFragment"
+            app:destination="@id/pictureViewFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pictureViewFragment"
+        android:name="com.grohden.niceanimals.ui.fragments.PictureViewFragment"
+        tools:layout="@layout/fragment_picture_view"
+        >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>

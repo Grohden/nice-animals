@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.data.NiceAnimalPicture
 import com.grohden.niceanimals.databinding.ListItemPictureBinding
+import com.grohden.niceanimals.ui.adapters.diff.PictureDiffCallback
+import com.grohden.niceanimals.ui.fragments.PicturesListFragmentDirections
 import com.grohden.niceanimals.ui.viewmodels.PictureViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -35,7 +37,7 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
     getItem(position).let { picture ->
       with(holder) {
         itemView.tag = picture
-        bind(createOnClickListener(picture.url), picture)
+        bind(createOnClickListener(position), picture)
       }
     }
 
@@ -53,11 +55,11 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
   fun onReachBottom(): Observable<Int> = onReachBottomSubject
 
 
-  private fun createOnClickListener(pictureUrl: String): View.OnClickListener {
+  private fun createOnClickListener(position: Int): View.OnClickListener {
     return View.OnClickListener {
-      //  val direction =
-      //    GardenFragmentDirections.actionGardenFragmentToPlantDetailFragment(pictureUrl)
-      //  it.findNavController().navigate(direction)
+      val direction = PicturesListFragmentDirections
+        .actionPictureListFragmentToPictureViewFragment(position)
+      it.findNavController().navigate(direction)
     }
   }
 
@@ -73,22 +75,5 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
         executePendingBindings()
       }
     }
-  }
-}
-
-private class PictureDiffCallback : DiffUtil.ItemCallback<NiceAnimalPicture>() {
-
-  override fun areItemsTheSame(
-    oldItem: NiceAnimalPicture,
-    newItem: NiceAnimalPicture
-  ): Boolean {
-    return oldItem.id == newItem.id
-  }
-
-  override fun areContentsTheSame(
-    oldItem: NiceAnimalPicture,
-    newItem: NiceAnimalPicture
-  ): Boolean {
-    return oldItem.url == newItem.url
   }
 }
