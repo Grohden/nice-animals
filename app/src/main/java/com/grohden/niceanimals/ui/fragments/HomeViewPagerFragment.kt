@@ -34,7 +34,6 @@ class HomeViewPagerFragment : Fragment() {
   private fun setupToolbarAndMenu(binding: FragmentViewPagerBinding) {
     val mainActivity = (activity as AppCompatActivity)
     mainActivity.setSupportActionBar(binding.toolbar)
-    binding.toolbarLayout.isTitleEnabled
     mainActivity.supportActionBar?.setDisplayShowTitleEnabled(true)
     setHasOptionsMenu(true)
   }

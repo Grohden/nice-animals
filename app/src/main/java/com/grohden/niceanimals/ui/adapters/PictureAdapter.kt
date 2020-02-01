@@ -59,19 +59,19 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
 
     init {
       binding.setClickListener {
-        binding.picture?.let(this::navigateToImage)
+        binding.picture?.let { picture ->
+          navigateToImage(picture, it)
+        }
       }
     }
 
-    private fun navigateToImage(model: PictureViewModel): View.OnClickListener {
-      return View.OnClickListener { view ->
-        val direction = HomeViewPagerFragmentDirections
-          .actionHomeViewPagerFragmentToPictureViewFragment(
-            adapterPosition,
-            model.type
-          )
-        view.findNavController().navigate(direction)
-      }
+    private fun navigateToImage(model: PictureViewModel, view: View) {
+      val direction = HomeViewPagerFragmentDirections
+        .actionHomeViewPagerFragmentToPictureViewFragment(
+          adapterPosition,
+          model.type
+        )
+      view.findNavController().navigate(direction)
     }
 
     fun bind(boundPicture: NiceAnimalPicture) {
