@@ -3,16 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/pictureListFragment"
+    app:startDestination="@+id/homeViewPagerFragment"
     android:id="@+id/nav_graph">
 
     <fragment
-        android:id="@+id/pictureListFragment"
-        android:name="com.grohden.niceanimals.ui.fragments.PicturesListFragment"
-        tools:layout="@layout/fragment_picture_list"
-        >
+        android:id="@+id/homeViewPagerFragment"
+        android:name="com.grohden.niceanimals.ui.fragments.HomeViewPagerFragment"
+        android:label="Nice animals"
+        tools:layout="@layout/fragment_view_pager">
         <action
-            android:id="@+id/action_pictureListFragment_to_pictureViewFragment"
+            android:id="@+id/action_homeViewPagerFragment_to_pictureViewFragment"
             app:destination="@id/pictureViewFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -29,6 +29,9 @@
             android:name="position"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="animalType"
+            app:argType="com.grohden.niceanimals.shibe.service.AnimalType" />
     </fragment>
 
 </navigation>

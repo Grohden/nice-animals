@@ -1,4 +1,4 @@
-package com.grohden.niceanimals.ui.activities
+package com.grohden.niceanimals.ui
 
 import android.os.Bundle
 import androidx.navigation.Navigation.findNavController
@@ -15,7 +15,6 @@ class MainActivity : BaseActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    setTheme(R.style.SplashScreenTheme)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     setupAppBar()
@@ -23,10 +22,10 @@ class MainActivity : BaseActivity() {
   }
 
   private fun setupNavigationListener() {
-    navController.addOnDestinationChangedListener { controller, destination, arguments ->
+    navController.addOnDestinationChangedListener { _, destination, _ ->
       when (destination.id) {
-        R.id.pictureListFragment -> {
-          supportActionBar?.show()
+        R.id.homeViewPagerFragment -> {
+          supportActionBar?.hide()
         }
         R.id.pictureViewFragment -> {
           supportActionBar?.hide()
@@ -40,7 +39,7 @@ class MainActivity : BaseActivity() {
 
     val appBarConfiguration = AppBarConfiguration.Builder(
       setOf(
-        R.id.pictureListFragment,
+        R.id.homeViewPagerFragment,
         R.id.pictureViewFragment
       )
     ).build()

@@ -9,10 +9,10 @@ class PictureRepository private constructor(
   private val niceAnimalPictureDao: NiceAnimalPictureDao
 ) {
 
-  suspend fun createAnimalPicture(plantId: String) {
+  suspend fun createAnimalPicture(url: String, type: AnimalType) {
     withContext(IO) {
       niceAnimalPictureDao.insertAnimalPicture(
-        picture = NiceAnimalPicture(plantId)
+        picture = NiceAnimalPicture(url, type)
       )
     }
   }
@@ -33,15 +33,18 @@ class PictureRepository private constructor(
     val shibeService = InjectorUtil.provideShibeService()
 
     val newBoys = shibeService
-      .fetchNiceImageUrls(type, 10)
+      .fetchNiceImageUrls(type.convertToRemote(), 10)
       .blockingGet()
-      .map(::NiceAnimalPicture)
+      .map { url -> NiceAnimalPicture(url, type) }
 
     niceAnimalPictureDao.insertAll(newBoys)
   }
 
-  fun getAnimalPictures() =
-    niceAnimalPictureDao.getAnimalPictures()
+  fun getAllAnimalPictures() =
+    niceAnimalPictureDao.getAllAnimalPictures()
+
+  fun getAnimalTypePictures(type: AnimalType) =
+    niceAnimalPictureDao.getAnimalTypePictures(type)
 
   companion object {
 

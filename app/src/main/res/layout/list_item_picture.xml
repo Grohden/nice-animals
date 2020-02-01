@@ -19,7 +19,7 @@
         android:onClick="@{clickListener}">
 
         <ImageView
-            android:id="@+id/plant_item_image"
+            android:id="@+id/animal_item_image"
             android:layout_width="@dimen/min_image_height"
             android:layout_height="@dimen/min_image_height"
             android:adjustViewBounds="true"

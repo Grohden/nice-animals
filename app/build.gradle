@@ -12,11 +12,19 @@ android {
     }
     defaultConfig {
         applicationId "com.grohden.niceanimals"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 2
         versionName "2.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
     }
     buildTypes {
         release {
@@ -54,27 +62,25 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:$rx_bindings_version"
     implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$rx_bindings_version"
 
-    // Do i need rxkotlin? implementation 'io.reactivex.rxjava2:rxkotlin:x.y.z'
+    // Material
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
 
-    //Support libs
-
-    //FIXME: do i need v4 AND v7?
+    // Support libs
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
-    //These ones are only present because AS complains about versions...
+    // These ones are only present because AS complains about versions...
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
     implementation 'androidx.exifinterface:exifinterface:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 
-    //Image related
+    // Image related
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 
-    //Retrofit
+    // Retrofit
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -82,7 +88,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    //Koin
+    // Koin
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-android:$koin_version"
 
@@ -92,12 +98,15 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
 
     //Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // For Kotlin use navigation-fragment-ktx
-    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+    // Test
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 repositories {

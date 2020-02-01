@@ -11,7 +11,7 @@ import com.grohden.niceanimals.R
 import com.grohden.niceanimals.data.NiceAnimalPicture
 import com.grohden.niceanimals.databinding.ListItemPictureBinding
 import com.grohden.niceanimals.ui.adapters.diff.PictureDiffCallback
-import com.grohden.niceanimals.ui.fragments.PicturesListFragmentDirections
+import com.grohden.niceanimals.ui.fragments.HomeViewPagerFragmentDirections
 import com.grohden.niceanimals.ui.viewmodels.PictureViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -37,10 +37,9 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
     getItem(position).let { picture ->
       with(holder) {
         itemView.tag = picture
-        bind(createOnClickListener(position), picture)
+        bind(picture)
       }
     }
-
 
     if (position == itemCount - 1) {
       onReachBottomSubject.onNext(position)
@@ -54,22 +53,29 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
 
   fun onReachBottom(): Observable<Int> = onReachBottomSubject
 
-
-  private fun createOnClickListener(position: Int): View.OnClickListener {
-    return View.OnClickListener {
-      val direction = PicturesListFragmentDirections
-        .actionPictureListFragmentToPictureViewFragment(position)
-      it.findNavController().navigate(direction)
-    }
-  }
-
   class ViewHolder(
     private val binding: ListItemPictureBinding
   ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(listener: View.OnClickListener, boundPicture: NiceAnimalPicture) {
+    init {
+      binding.setClickListener {
+        binding.picture?.let(this::navigateToImage)
+      }
+    }
+
+    private fun navigateToImage(model: PictureViewModel): View.OnClickListener {
+      return View.OnClickListener { view ->
+        val direction = HomeViewPagerFragmentDirections
+          .actionHomeViewPagerFragmentToPictureViewFragment(
+            adapterPosition,
+            model.type
+          )
+        view.findNavController().navigate(direction)
+      }
+    }
+
+    fun bind(boundPicture: NiceAnimalPicture) {
       with(binding) {
-        clickListener = listener
         picture = PictureViewModel(picture = boundPicture)
         //viewModel = PictureViewModel(picture)
         executePendingBindings()

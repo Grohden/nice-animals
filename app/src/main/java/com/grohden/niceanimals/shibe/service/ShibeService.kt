@@ -16,7 +16,7 @@ interface ShibeService {
    */
   @GET("{animalType}")
   fun fetchNiceImageUrls(
-    @Path("animalType") animalType: AnimalType,
+    @Path("animalType") animalType: RemoteAnimalType,
     @Query("count") count: Int?
   ): Single<List<String>>
 }
