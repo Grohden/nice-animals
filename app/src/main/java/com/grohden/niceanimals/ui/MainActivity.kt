@@ -1,6 +1,7 @@
 package com.grohden.niceanimals.ui
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -26,9 +27,11 @@ class MainActivity : BaseActivity() {
       when (destination.id) {
         R.id.homeViewPagerFragment -> {
           supportActionBar?.hide()
+          window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
         R.id.pictureViewFragment -> {
           supportActionBar?.hide()
+          window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
       }
     }

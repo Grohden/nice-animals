@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -35,6 +36,7 @@ class PictureViewFragment : Fragment() {
     PagerSnapHelper().attachToRecyclerView(binding.picturesList)
     binding.picturesList.adapter = adapter
     subscribeUi(adapter, binding)
+
     return binding.root
   }
 

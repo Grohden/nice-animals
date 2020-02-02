@@ -11,7 +11,7 @@ class PictureRepository private constructor(
 
   suspend fun createAnimalPicture(url: String, type: AnimalType) {
     withContext(IO) {
-      niceAnimalPictureDao.insertAnimalPicture(
+      niceAnimalPictureDao.insertSingle(
         picture = NiceAnimalPicture(url, type)
       )
     }
@@ -25,7 +25,7 @@ class PictureRepository private constructor(
 
   suspend fun removeAnimalPicture(picture: NiceAnimalPicture) {
     withContext(IO) {
-      niceAnimalPictureDao.deleteAnimalPicture(picture)
+      niceAnimalPictureDao.deleteSingle(picture)
     }
   }
 
@@ -41,10 +41,10 @@ class PictureRepository private constructor(
   }
 
   fun getAllAnimalPictures() =
-    niceAnimalPictureDao.getAllAnimalPictures()
+    niceAnimalPictureDao.getAll()
 
   fun getAnimalTypePictures(type: AnimalType) =
-    niceAnimalPictureDao.getAnimalTypePictures(type)
+    niceAnimalPictureDao.getAllByType(type)
 
   companion object {
 

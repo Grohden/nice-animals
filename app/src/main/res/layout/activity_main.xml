@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:title="@string/app_name"
+        app:title="@string/app_name"
+        tools:visibility="gone"
         />
 
     <fragment
