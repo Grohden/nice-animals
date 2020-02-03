@@ -3,13 +3,13 @@ package com.grohden.niceanimals.base.di.koin
 import com.google.gson.GsonBuilder
 import com.grohden.niceanimals.base.di.koin.WebserviceUrls.SHIBE_SERVICE
 import com.grohden.niceanimals.shibe.service.ShibeService
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 val netModule = module {
   single {

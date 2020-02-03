@@ -1,6 +1,5 @@
 package com.grohden.niceanimals.ui.viewmodels
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.grohden.niceanimals.data.NiceAnimalPicture
 

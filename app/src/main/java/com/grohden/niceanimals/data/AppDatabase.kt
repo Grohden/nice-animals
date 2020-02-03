@@ -11,7 +11,6 @@ import androidx.work.WorkManager
 import com.grohden.niceanimals.AppConstants.DATABASE_NAME
 import com.grohden.niceanimals.worker.SeedDatabaseWorker
 
-
 @Database(entities = [NiceAnimalPicture::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

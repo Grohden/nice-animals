@@ -2,7 +2,12 @@ package com.grohden.niceanimals.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -25,7 +30,6 @@ class HomeViewPagerFragment : Fragment() {
     TabLayoutMediator(tabLayout, viewPager) { tab, position ->
       tab.text = getTabTitle(position)
     }.attach()
-
 
     setupToolbarAndMenu(binding)
     return binding.root

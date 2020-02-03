@@ -1,7 +1,6 @@
 package com.grohden.niceanimals.ui
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI

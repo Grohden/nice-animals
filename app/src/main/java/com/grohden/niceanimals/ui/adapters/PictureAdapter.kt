@@ -90,7 +90,7 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
     fun bind(boundPicture: NiceAnimalPicture) {
       with(binding) {
         picture = PictureViewModel(picture = boundPicture)
-        //viewModel = PictureViewModel(picture)
+        // viewModel = PictureViewModel(picture)
         executePendingBindings()
       }
     }

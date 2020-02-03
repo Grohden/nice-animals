@@ -7,9 +7,9 @@ import com.grohden.niceanimals.data.PictureRepository
 import com.grohden.niceanimals.shibe.service.AnimalType
 import com.grohden.niceanimals.shibe.service.ShibeService
 import com.grohden.niceanimals.ui.viewmodels.PictureListViewFactory
+import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import java.util.concurrent.TimeUnit
 
 object InjectorUtil {
 
