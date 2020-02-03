@@ -2,4 +2,7 @@
 <resources>
     <string name="see_on_github">Ver no Github</string>
     <string name="error_loading_animals">Erro ao carregar os animais :/</string>
+    <string name="shibes_tab_title">Shibas</string>
+    <string name="cats_tab_title">Gatos</string>
+    <string name="birds_tab_title">Pássaros</string>
 </resources>

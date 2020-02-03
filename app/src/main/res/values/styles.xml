@@ -2,30 +2,23 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimaryDark</item>
-
-    </style>
-
-    <style name="ToolbarTheme" parent="Base.V26.Widget.AppCompat.Toolbar">
-    </style>
-
-    <style name="SplashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_background</item>
-        <item name="toolbarStyle">@style/ToolbarTheme</item>
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">false</item>
+    <style name="Base.Theme.NiceAnimals" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="ImmersiveTheme" parent="SplashScreenTheme">
+    <style name="Theme.NiceAnimals" parent="Base.Theme.NiceAnimals" />
+
+    <style name="Theme.NiceAnimals.NoActionBar">
+        <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="Theme.NiceAnimals.NoActionBar.Immersive" parent="Theme.NiceAnimals.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Theme.NiceAnimals.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 </resources>

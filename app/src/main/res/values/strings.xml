@@ -3,4 +3,7 @@
     <string name="app_name" translatable="false">Nice Animals</string>
     <string name="see_on_github">See on Github</string>
     <string name="error_loading_animals">Exception trying to get animals :/</string>
+    <string name="shibes_tab_title">Shibes</string>
+    <string name="cats_tab_title">Cats</string>
+    <string name="birds_tab_title">Birds</string>
 </resources>
