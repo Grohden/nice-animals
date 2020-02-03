@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -33,17 +32,18 @@ class PictureViewFragment : Fragment() {
     context ?: return binding.root
 
     val adapter = PictureViewAdapter()
-    PagerSnapHelper().attachToRecyclerView(binding.picturesList)
-    binding.picturesList.adapter = adapter
-    subscribeUi(adapter, binding)
+    val list = binding.picturesList
+    PagerSnapHelper().attachToRecyclerView(list)
 
-    return binding.root
-  }
-
-  private fun subscribeUi(adapter: PictureViewAdapter, binding: FragmentPictureViewBinding) {
     viewModel.pictures.observe(viewLifecycleOwner) { pictures ->
       adapter.submitList(pictures)
-      binding.picturesList.scrollToPosition(args.position)
+
+      if (list.adapter == null) {
+        list.adapter = adapter
+        list.scrollToPosition(args.position)
+      }
     }
+
+    return binding.root
   }
 }

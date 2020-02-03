@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
@@ -21,6 +22,14 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
 ) {
   private val onReachBottomSubject = PublishSubject.create<Int>()
 
+  init {
+    setHasStableIds(true)
+  }
+
+  override fun getItemId(position: Int): Long {
+    return getItem(position).id
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     ListItemPictureBinding.inflate(
       LayoutInflater.from(parent.context)
@@ -36,7 +45,8 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     getItem(position).let { picture ->
       with(holder) {
-        itemView.tag = picture
+        itemView.tag = picture.url
+        itemView.transitionName = picture.url
         bind(picture)
       }
     }
@@ -66,12 +76,15 @@ class PictureAdapter : ListAdapter<NiceAnimalPicture, PictureAdapter.ViewHolder>
     }
 
     private fun navigateToImage(model: PictureViewModel, view: View) {
+      val extras = FragmentNavigatorExtras(
+        itemView to model.url
+      )
       val direction = HomeViewPagerFragmentDirections
         .actionHomeViewPagerFragmentToPictureViewFragment(
           adapterPosition,
           model.type
         )
-      view.findNavController().navigate(direction)
+      view.findNavController().navigate(direction, extras)
     }
 
     fun bind(boundPicture: NiceAnimalPicture) {

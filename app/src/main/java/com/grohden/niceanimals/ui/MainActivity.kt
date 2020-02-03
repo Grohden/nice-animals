@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
 
   private val navController by lazy {
-    findNavController(this, R.id.navHostFragment)
+    findNavController(this, R.id.nav_host_fragment)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,18 +27,16 @@ class MainActivity : BaseActivity() {
       when (destination.id) {
         R.id.homeViewPagerFragment -> {
           supportActionBar?.hide()
-          window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
         R.id.pictureViewFragment -> {
           supportActionBar?.hide()
-          window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         }
       }
     }
   }
 
   private fun setupAppBar() {
-    setSupportActionBar(appToolbar)
+    setSupportActionBar(app_toolbar)
 
     val appBarConfiguration = AppBarConfiguration.Builder(
       setOf(

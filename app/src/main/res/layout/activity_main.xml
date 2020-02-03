@@ -10,7 +10,7 @@
     >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/appToolbar"
+        android:id="@+id/app_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
@@ -19,7 +19,7 @@
         />
 
     <fragment
-        android:id="@+id/navHostFragment"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

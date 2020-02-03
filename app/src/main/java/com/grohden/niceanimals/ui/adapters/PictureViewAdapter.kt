@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grohden.niceanimals.R
 import com.grohden.niceanimals.data.NiceAnimalPicture
-import com.grohden.niceanimals.databinding.ListItemPictureBinding
 import com.grohden.niceanimals.databinding.ListItemViewBinding
 import com.grohden.niceanimals.ui.adapters.diff.PictureDiffCallback
 import com.grohden.niceanimals.ui.viewmodels.PictureViewModel
@@ -15,6 +14,15 @@ import com.grohden.niceanimals.ui.viewmodels.PictureViewModel
 class PictureViewAdapter : ListAdapter<NiceAnimalPicture, PictureViewAdapter.ViewHolder>(
   PictureDiffCallback()
 ) {
+
+  init {
+    setHasStableIds(true)
+  }
+
+  override fun getItemId(position: Int): Long {
+    return getItem(position).id
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     ListItemViewBinding.inflate(
       LayoutInflater.from(parent.context)
@@ -30,7 +38,8 @@ class PictureViewAdapter : ListAdapter<NiceAnimalPicture, PictureViewAdapter.Vie
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     getItem(position).let { picture ->
       with(holder) {
-        itemView.tag = picture
+        itemView.tag = picture.url
+        itemView.transitionName = picture.url
         bind(picture)
       }
     }
